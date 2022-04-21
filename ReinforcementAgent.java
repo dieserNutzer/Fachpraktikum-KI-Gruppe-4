@@ -28,15 +28,18 @@ import java.util.List;
 // eine potentielle Fehlerquelle dar. War nötig für die Funktionen chooseAction und input.
 public abstract class ReinforcementAgent extends Agent{
 	int inputDimension;					/*Anzahl der Floats zur Repräsentation eines States*/
-	int outputDimension;				/*Anzahl der verfügbaren Aktionen (binären Handlungsmöglichkeiten)*/
+	int outputDimension;					/*Anzahl der verfügbaren Aktionen (binären Handlungsmöglichkeiten)*/
 	float epsilon;						/*[eps-greedy = 1 - eps + (eps / anzahlActions), eps-non-greed = (eps / anzahlActions)] */
+	// Die Belohnungen werden auf alle vor dem Erhalt der Belohung ausgeführten Aktionen verteilt, je länger die Aktionen her sind desto schwächer wird 
+	// Belohnung auf diese wirken. Im SARSA wird nur der letzte Schritt betrachtet, bei anderen Formen, wie dem Q-Learning wird die Belohnung mehrfach mit
+	// dem disount multipliziert um die Belohnung abzuschwächen. Daher liegt der Discount zwischen 0 und 1.
 	float discount;						/*schwächt rewards in entfernter Zukunft ab, wenn <1*/
 	float Reward;						/*der zum aktuellen Input gegebene reward*/
 	int Output;						/*Index der gewählten Aktion (Ergebnis des letzten chooseAction Aufrufs)*/
-	// es scheint, so als müssten hier Conntainer-complatible Variablen für List genutzt werden.
-	// falls einer ne besser Variante hat als List<Integer> bzw. List<Float>, gerne umsetzen.
+	// Alle states werden in einer Liste gespeichert und der zweite state beginnt somit bei inputDimension-1.
+	// gleiches gilt für stateActionValues. Die Position der stateActionValues korrespondiert mit der von states.
 	List<Float> states;					/*bekannte states (die bereits erlebten Inputs)*/
-	List<Float> stateActionValues;      /*die Wahrscheinlichkeiten der Aktionen zu jedem state*/
+	List<Float> stateActionValues;      			/*die Wahrscheinlichkeiten der Aktionen zu jedem state*/
 	// bei preferedPolicyIndex bin ich mir nicht ganz sicher, ob Int richtig ist.
 	List<Integer> preferedPolicyIndex;	/*die aktuell höchste Wahrscheinlichkeit aller Aktionen eines bestimmten states, also argmax(stateActionValues[stateIndex bis stateIndex+inputDim])*/
 	List<Float> letzterInput;			/*der aktuelle Input (ein state)*/
