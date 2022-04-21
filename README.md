@@ -1,10 +1,10 @@
 # Fachpraktikum-KI-Gruppe-4
 
 Kurze Einführung:
-Die Agenten müssen Erben der Klasse Agent sein und werden in der Liste "agents" in Scheduler.java ausgefürht bzw. werden ihnen die Nachrichten und sensorischen Daten zugeordnet.
+Die Agenten müssen Erben der Klasse Agent sein und werden in der Liste "agents" in Scheduler.java ausgefürht bzw. werden ihnen die Nachrichten und sensorischen Daten zugeordnet. Diese finden wir in "massim_2022-main\javaagents\src\main\java\massim\javaagents"
 Die Agenten können sich gegenseitig Nachrichten senden. Das scheint unabhängig vom Server zu funktionieren, dabei können die Agenten einzeln addressiert werden oder es wird gebroadcasted. 
-Ich hab hier schonmal ReinforcementAgenten hochgeladen, einfach damit wir eine Diskussionsbasis haben. Reinforcement wird im Buch auf Seite 266 erklärt.
-Der Vorteil beim ReinforcementLearning wäre, dass wir uns keinerler Wissen über das Spiel selbst aneignen müssen.
+Ich hab hier schonmal ReinforcementAgenten hochgeladen, einfach damit wir eine Diskussionsbasis haben. Reinforcement wird im Buch von gerhard weiss auf Seite 266 erklärt.
+Der Vorteil beim ReinforcementLearning wäre, dass wir uns wenig Wissen über das Spiel selbst aneignen müssen.
 
 Reinforcementagent:
 Außer der Eingabe- und Ausgabedimension wird kein Wissen über das System benötigt.
