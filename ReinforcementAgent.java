@@ -14,11 +14,12 @@ import java.util.List;
 
 // Weil es mehrere Arten von Reinforcementagenten gibt, ist die Klasse Reinforcement und SARSA getrennt.
 // Jeder input (bei Massim als "percept" bezeichent) ist eine Liste an Zahlen. Diese werden der Funktion "input" übergeben. 
-// Nach der Eingabe wird überprüft, ob der gegebene percept bereits bekannt ist, dies geschieht über die Funktion "checkForUnknownStates".
+// Nach der Eingabe wird überprüft, ob der gegebene percept bereits bekannt ist, dies geschieht über die Funktion "checkForUnknownStates" (wobei ich gerade merke, 
+// der Name "checkIfKnown" mehr Sinn machen würde). 
 // Wenn der percept neu ist wird er gespeichert und neue Wahrscheinlichkeiten für die Auswahl der Aktionen für diesen percept/state initialisiert, dies geschieht 
 // über die Funktion "addNewState".
 // In beiden Fällen wird der mit dem input übergebene Reward ausgewertet und die Wahrscheinlichkeiten für die Aktionen angepasst, dies geschieht über 
-// die Funktion "stateActionValueUpdate". Diese wird genauer in SARSA definiert, weil dies von der genauen Implementierung des ReinforcementLearnings abhängt.
+// die Funktion "stateActionValueUpdate". Diese wird in SARSA definiert, weil dies von der genauen Implementierung des ReinforcementLearnings abhängt.
 
 // übersetzt aus C++
 // ALLE Variablen hatten dort den Typ float oder std::vector<float>!
