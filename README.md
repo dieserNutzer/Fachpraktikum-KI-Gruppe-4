@@ -12,3 +12,7 @@ Der Agent spielt das Spiel und wählt in jedem Schritt zufällig eine Aktion. Er
 Sobald der Agent beim Spielen durch Zufall eine Belohnung erhält, wird die Wahrscheinlichkeit der in den letzten states ausgewählten Aktion erhöht.
 
 Das ist ganz grob wie ReinforcementLearning funktioniert. Die Implementierung die ich hochgeladen habe ist ein sogenannter SARSA-Agent. Dieser speichert keine Liste der zuletzt verwendeten Aktionen und states, sondern erhöht nur den letzten. Dadurch ist das Lernen etwas langsamer, aber Schrittanzahl für die ein Zusammenhang mit der Belohnung erkannt werden kann ist nicht fest vorgegeben.
+
+Ich hoffe das ist auch nur ansatzweise hilfreich. Ich habe den Code gerade noch mti ein paar Kommentaren versehen. 
+
+Den Reinforcementagenten können wir, wie erwähnt, nicht direkt anwenden, weil die Eingabedimension sowie die Ausgabedimension sich ändern kann. Dafür gibt es aber Workarounds. 
