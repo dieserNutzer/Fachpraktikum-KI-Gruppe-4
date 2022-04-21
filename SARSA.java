@@ -8,8 +8,8 @@ import eis.iilang.Percept;
 import massim.javaagents.MailService;
 
 public class SARSA extends ReinforcementAgent {
-	float stepSize;
-	int letzterSAVIndex;    //Index der zuletzt gewählten Aktion (also der Aktion die uns in en aktuellen state versetzt hat)
+	float stepSize;		// gibt an wie stark die Wahrscheinlichkeit geändert werden soll 
+	int letzterSAVIndex;    // Index der zuletzt gewählten Aktion (also der Aktion die uns in en aktuellen state versetzt hat)
 
 	public SARSA(String name, MailService mailbox, int InDim, int outDim, float Epsilon, float Discount,
 		float LetzterReward, int LetzterActionIndex, float StepSize, int LetzterSAVIndex,
@@ -43,24 +43,30 @@ public class SARSA extends ReinforcementAgent {
 	}
 
 	int chooseAction() {
-		//die Rückgabe ist nicht die ausgewählte Aktion sonder der Index des aktuellen zustands/inputs in states 
-		//der Index der gewählten Aktion wird in letzterOutput gespeichert
-		//von hier...
+		// als erstes wird nach dem percept in state gesucht
 		int match = findFirstMatch (letzterInput, inputDimension, states);
 		int actionIndex;
+		// wenn der percept bereits bekannt ist wird eine zufällige Zahl generiert und somit eine Aktion gewählt.
+		// Das heißt, dass nicht immer die beste Gewählt wird, aber wenn korrekt gelernt wird immer häufiger.
 		if(match != -1) {
 			// ThreadLocalRandom.current().nextInt(0, 10000+1) hab' ich von
 			// https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
 			// könnte also eine Fehlerquelle sein.
 			// hier stand vorher int random = rand() % 100 + 1;, was wenn ich mich richtig erinnere ein Int zwischen 0 und 1000 generiert 
 			int random = ThreadLocalRandom.current().nextInt(0, 10000+1) % 100;
+			// als erstes wird entschieden, ob einfach "gierig" die zur Zeit beste Aktion gewählt wird. 
+			// Die Wahrscheinlichkeit für gieriges Verhalten wird mit epsilon, einem Wert zwischen 0 und 1 angegeben. 
 			if (random <= epsilon * 100)
 				actionIndex = preferedPolicyIndex.get(match);
+			// wenn nicht gierig gehandelt werden soll, wird eine neue zufällige Zahl erstellt und eine Aktion gewählt.
+			// (Die Zufallszahl muss neu bestimmt werden, weil die Wahl von epsilon sonst einen Einfluss auf die Wahl der
+			// Aktionen im nicht gierigen Fall hat)
 			else {
 				int newrandom = ThreadLocalRandom.current().nextInt(0, 10000+1) % (outputDimension - 1) + 1;
 				actionIndex = (preferedPolicyIndex.get(match) + newrandom) % outputDimension;
 			}
 		}
+		// wenn der percept nicht bekannt ist, wird er zu states hinzugefügt.
 		else {
 			addNewState (letzterInput);
 			match = states.size () / inputDimension - 1;
@@ -68,7 +74,6 @@ public class SARSA extends ReinforcementAgent {
 			}
 		Output = actionIndex;
 		return match;
-		//... bis hier eigentlich nur chooseAction()
 		}
 
 	void UpdateStateActionValues(int neutralIndex) {
@@ -78,13 +83,18 @@ public class SARSA extends ReinforcementAgent {
 		letzterSAVIndex = SAVIndex;
 		}
 
+	// um nicht für jeden state immer wieder alle Wahrscheinlichkeiten der Aktionen auslesen zu müssen wird der Index der Besten in preferedPolicyIndex
+	// gespeichert. Dementsprechend muss ab und zu überprüft werden welche die Beste ist. Wir checken dies hier einfach bei jeder Eingabe, kann aber
+	// für Geschwindigkeit sletener ausgeführt werden.
 	void UpdatePolicy(int neutralIndex) {
 		for(int j = 0; j < outputDimension; j++) {
 			if(stateActionValues.get(neutralIndex*outputDimension + preferedPolicyIndex.get(neutralIndex))
 			   < stateActionValues.get(neutralIndex*outputDimension + j)) {
 				preferedPolicyIndex.set(neutralIndex, j);	}	}
 		}
-
+	
+	// falls nicht nach jedem Input der beste StatActionValue für genau diesen state bestimmt wird, können diese auch für alle gleichzeitig
+	// überprüft werden. 
 	void UpdateAllPolicies() {
 		for(int i = 0; i < states.size() / outputDimension; i++) {
 			for(int j = 0; j < outputDimension; j++) {
