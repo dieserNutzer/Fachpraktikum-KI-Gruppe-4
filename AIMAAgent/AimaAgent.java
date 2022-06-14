@@ -31,12 +31,7 @@ public class AimaAgent extends Agent{
 	@Override
 	public Action step() {
 		// entweder in jedem Schritt überprüfen, ob vom Plan 
-		// abgewichen wird und neu berechnen 
-		// if ()
-		// oder direkt den LRTA-Algorithmus einbeziehen
-		// (siehe LRTAStarAgent)
-		// so wie ich das aus dem Buch entnommen hatte verfolgt
-		// der LRTA einen Plan.
+		// abgewichen wird und ggf. neu berechnen 
 		// Optional<List<ActionSchema>> plan = planer.search()
 		// TODO Auto-generated method stub
 		return null;
