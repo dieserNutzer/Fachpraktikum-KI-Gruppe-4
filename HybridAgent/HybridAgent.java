@@ -8,15 +8,17 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import aima.core.logic.fol.domain.FOLDomain;
-import aima.core.logic.fol.kb.FOLKnowledgeBase;
-import aima.core.logic.planning.ActionSchema;
-import aima.core.logic.planning.HeuristicForwardStateSpaceSearchAlgorithm;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import massim.javaagents.MailService;
+
+
+/*Da wir keinerlei FOL nutzen, müssen wir alle Preconditions und Effekte der Aktionsschematas in JAVA implementieren.
+Dabei hatte ich die Idee die Aktionen als Iteratoren anzulegen, weil die Aktionsschematas oftmals Quantifizierungen für Parameter aufweisen. Die Iteratoren bekommen dazu alle Daten übergeben, welche die Kombinationen der Parameter definieren (vorerst nur Felder auf dem Spielfeld). 
+Weil die Anwendung jeder Aktion auch einen neuen State erstellen werden die Aktionen auch als Generatoren ausgelegt, sodass sie für alle möglichen Parameter Kombinationen einen neuen State erstellen. 
+Jeder dieser States ist ein Nachbarstate des aktuellen Beliefe-State. Jeder Nachbarstate bekommt einen heuristischen Wert zugewiesen. */
 
 public class HybridAgent extends Agent{
 	static int anzahlAktions = 12; // gerne nochmal checken.
@@ -31,11 +33,10 @@ public class HybridAgent extends Agent{
 	 * Erster Index gibt den index der Aktion an.
 	 * Zweiter Index gibt 
 	 */
-	int[][] Effekte;
-	int[][] Precondition;
-	int[] Goal;
+	State Goal;
 	int viewDist;
-		
+	List<Iterator>  Aktions;
+	
 	HybridAgent(String name, MailService mailbox, int XDim, int YDim, int viewDist) {
 		super(name, mailbox);
 		aktuellerPercept.setSize(XDim, YDim);
@@ -126,36 +127,11 @@ public class HybridAgent extends Agent{
 		}
 	}
 	
-	void chooseAction(int i) {
-		// Mein erster Gedanke war die Aktionsschematas einfach direkt so aus dem was wir für die FOL angefertigt haben machen.
-		// Das würde aber bedeuten, dass die Anzahl der Aktionen auf eine konstanten Anzahl beschränken.
-		// Dazu würden dann einfach alle Preconditions und Effekte der Aktionsschematas auf die Klassenmember angewandt. 
-		// Stattdessen erstellen wir Klassen deren Instanzen als Generatoren funktionieren. Jeder Generator erstellt aus dem 
-		// aktuellen Beliefe-State (repräsentiert von Spielfeld, Zones und connected) bei jeder Anfrage einen bnachbarten Beliefe-State, also 
-		// einen der durch Ausführung der Aktion mit bestimmten Parametern erreicht werden würde.
-		// Das heißt statt Funktionen werden die Aktionen als Klasse-Instanzen (ähnlich Iteratoren) implementiert.
-		// Statt der Aktionen "attachNord", "attachSued", "attachWest", "attachOst", wird eine Funktion mit dem Namen Attach erstellt.
-		switch(i) {
-			case 0: skip(); break;
-			case 1: attach(); break;
-			case 2: detach(); break;
-			case 3: connect(); break;
-			case 4: disconnect(); break;
-			case 5: request(); break;
-			case 6: submit(); break;
-			case 7: clear(); break;
-			case 8: adopt(); break;
-			case 9: survey(); break; 
-			case 10: rotate(); break;
-			case 11: move(); break; 
-				}
-	}
-	
 	/**
 	 * @author Nutzer
 	 *
 	 */
-	private class skip implements Iterator<FieldValues[][]>{				
+	class skip implements Iterator<FieldValues[][]>{				
 		@Override
 		public boolean hasNext() {
 			// TODO Auto-generated method stub
