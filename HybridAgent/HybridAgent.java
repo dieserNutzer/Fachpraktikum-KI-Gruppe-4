@@ -1,6 +1,7 @@
 package massim.javaagents.agents;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,11 +9,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import eis.iilang.Action;
-import eis.iilang.Identifier;
-import eis.iilang.Parameter;
-import eis.iilang.Percept;
-import massim.javaagents.MailService;
 
 
 /*Da wir keinerlei FOL nutzen, müssen wir alle Preconditions und Effekte der Aktionsschematas in JAVA implementieren.
@@ -21,21 +17,29 @@ Weil die Anwendung jeder Aktion auch einen neuen State erstellen werden die Akti
 Jeder dieser States ist ein Nachbarstate des aktuellen Beliefe-State. Jeder Nachbarstate bekommt einen heuristischen Wert zugewiesen. */
 
 public class HybridAgent extends Agent{
-	static int anzahlAktions = 12; // gerne nochmal checken.
+	static int anzahlAktionen = 12; // gerne nochmal checken.
 	Random randomGenerator = new Random();	// generiert zufallszahlen
 	State aktuellerBeliefeState;
 	State aktuellerPercept;
 	/**
 	 * Eine Liste für die benachbarten Spielfelder die sich Anwendung der Aktionen aus dem aktuellen Spielfeld ergeben.
 	 */
-	State[] Nachbarn;
+	List<State> nachbarn;
+	/**
+	 * Eine Liste die für den korrespondierenden Index in nachbarn angibt, über welche Aktion diese aus dem 
+	 * beliefeState generiert wurde.
+	 */
+	List<List<Integer>> aktions;
 	/**
 	 * Erster Index gibt den index der Aktion an.
 	 * Zweiter Index gibt 
 	 */
-	State Goal;
+	State goal;
+	/**
+	 * heuristische Werte zu den korrespondierenden Nachbarstates
+	 */
+	List<Float> heuristik;
 	int viewDist;
-	List<Iterator>  Aktions;
 	
 	HybridAgent(String name, MailService mailbox, int XDim, int YDim, int viewDist) {
 		super(name, mailbox);
@@ -121,82 +125,50 @@ public class HybridAgent extends Agent{
 	}
 	
 	void calculateNeigbours() {
-		for (int i = 0; i < anzahlAktions; i++) {
-			chooseAction(i);
-			calculateHeuristics();
-		}
+		skip();
+		attach();
 	}
+	
 	
 	/**
 	 * @author Nutzer
 	 *
 	 */
-	class skip implements Iterator<FieldValues[][]>{				
-		@Override
-		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public FieldValues[][] next() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	void skip(){			
+		nachbarn.add(aktuellerBeliefeState);
+		aktions.add(Arrays.asList(0));
 	}
 	
-	private class attach implements Iterator<boolean[][]>{
+	void attach(){
 		// Ich habe hiervon einiges https://stackoverflow.com/questions/36065361/how-a-java-iterator-works-internally
-		int cursorX;
-		int cursorY;
-		int lastRet = -1; // index of last element returned; -1 if no such
+		int x;
+		int y;
 		State neighbourState;
 		
-		/**
-		 * attach kann alle Felder adressieren auch solche die nicht im Sichtfeld sind.
-		 * Daher muss jedes Feld in connectable[][] durchlaufen werden.
-		 */
-		attach(){
-			neighbourState = new State();
-			reset();
+		for (x = 0; x < aktuellerBeliefeState.connectable.length; x++) {
+			for (y = 0; y < aktuellerBeliefeState.connectable[x].length; y++) {
+				if (aktuellerBeliefeState.connectable[x][y] == true) {
+					neighbourState = new State();
+					// als erstes kopieren wir den beliefeState um aus diesem und dem Effekt der Aktion dann den Nachbarn zu erstellen
+					neighbourState.connectable = aktuellerBeliefeState.connectable.clone();
+					neighbourState.connected = aktuellerBeliefeState.connected.clone();
+					neighbourState.Position = aktuellerBeliefeState.Position.clone();
+					neighbourState.Spielfeld = aktuellerBeliefeState.Spielfeld.clone();
+					neighbourState.XDim = aktuellerBeliefeState.XDim;
+					neighbourState.YDim = aktuellerBeliefeState.YDim;
+					neighbourState.Zones = aktuellerBeliefeState.Zones.clone();
+					// und hier dann die resultierenden Änderungen.
+					neighbourState.connectable[x][y] = false;
+					neighbourState.connected[x][y] = true;	
+					nachbarn.add(neighbourState);
+					aktions.add(Arrays.asList(1,x,y));
+				}					
+			}
 		}
-
-		public void reset() {
-			neighbourState.connectable = aktuellerBeliefeState.connectable.clone();
-			neighbourState.connected = aktuellerBeliefeState.connected.clone();
-			neighbourState.Position = aktuellerBeliefeState.Position.clone();
-			neighbourState.Spielfeld = aktuellerBeliefeState.Spielfeld.clone();
-			neighbourState.XDim = aktuellerBeliefeState.XDim;
-			neighbourState.YDim = aktuellerBeliefeState.YDim;
-			neighbourState.Zones = aktuellerBeliefeState.Zones.clone();
-			cursorX = 0;
-			cursorY = 0;
-		}
+	}
+			
+	void detach (){
 		
-		@Override
-		public boolean hasNext() {
-			return cursor < lastRet;
-		}
-
-		@Override
-		public boolean[][] next() {
-			return neighbourState.connected;
-		}
-	}	
-	
-	private class detach implements Iterator<boolean[][]>{
-		
-		@Override
-		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean[][] next() {
-			// TODO Auto-generated method stub
-			return null;
-		}
 	}
 	
 	void connect() {
@@ -236,6 +208,36 @@ public class HybridAgent extends Agent{
 	}
 	
 	void calculateHeuristicValues() {
+		for (int i = 0; i < nachbarn.size(); i++) {
+			// als Heuristik nutzen wir einfach mal die Anzahl der Literalte die sich unterscheiden
+			// ein Goal könnte dann als die Position in einer GoalZone, die benötigten Blöcke 
+			// ausgedrückt werden.
+			// danach könnte das Goal so geändert werden, dass die Aktion Submit ausgeführt wird.
+			// Als Heuristiken fallen mir die beiden grundlegenden ein. verringern der Knotenmenge und
+			// erhöhen der Kantenmenge.
+			// Wir können die Knotenmenge reduzieren, indem wir alle Literale/Variablen aus den Knoten 
+			// auslassen, die nicht im Ziel definiert sind. 
+			// Wir können die Anzahl der Kantenmenge reduzieren, indem wir jede Aktion in jedem Zustand
+			// als ausführbar annehmen.
+			// Für die Position benutzen wir einfach die Manhatten-Distanz, also die Distanze die sich 
+			// aus links/rechts-Schritten ergibt.
+			float heuro = 0;
+			if (goal.Position[0] != Integer.MAX_VALUE) {
+				// Wenn im Zielzustand eine Positioin gelistet wird, dann muss die Heuristik mindestens
+				// die Anzahl der Schritte in x-Richtung sein.
+				heuro += Math.abs(goal.Position[0] - aktuellerBeliefeState.Position[0]);
+			}
+			if (goal.Position[1] != Integer.MAX_VALUE) {
+				heuro += Math.abs(goal.Position[1] - aktuellerBeliefeState.Position[1]);				
+			}
+			if (goal.Spielfeld.length > 0) {
+				
+			}
+			
+		}
+	}
+	
+	void heuristik(State state, State goal) {
 		
 	}
 	
@@ -257,3 +259,5 @@ public class HybridAgent extends Agent{
 		
 	} 
 }
+
+	
