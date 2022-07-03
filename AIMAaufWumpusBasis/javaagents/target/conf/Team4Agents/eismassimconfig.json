@@ -1,0 +1,29 @@
+{
+  "scenario": "assemble2020",
+  "host": "localhost",
+  "port": 12300,
+  "scheduling": false,
+  "only-once": true,
+  "timeout": 7000,
+  "times": false,
+  "notifications": false,
+  "queued": false,
+
+  "entities" : {},
+  
+  "multi-entities": [
+    {
+      "name-prefix": "connectionTeam4",
+      "username-prefix": "Team4",
+      "password": "Team4",
+      "print-iilang": false,
+      "print-json": false,
+      "start-index": 1,
+      "count": -1
+    }
+  ],
+
+  "status-entity": {
+    "name": "statusConnection"
+  }
+}
