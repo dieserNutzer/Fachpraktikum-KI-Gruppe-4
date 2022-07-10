@@ -12,6 +12,8 @@ import java.util.function.ToDoubleFunction;
 
 public class MassimFunctions {
 
+	// diefiniert die Funktionen, die auf einem Feld ausgeführt werden können und eine Änderung des Zustands (Agentenposition)
+	// bewirken
 	public static Function<AgentPosition, List<MassimAction>> createActionsFunction(MassimGrid field) {
 		return state -> {
 			List<MassimAction> actions = new ArrayList<>();
@@ -35,6 +37,7 @@ public class MassimFunctions {
 		};
 	}
 
+	// Weist einer Agentenpositon und einer Aktion eine Folge Agentenposition zu.
 	public static BiFunction<AgentPosition, MassimAction, AgentPosition> createResultFunction(MassimGrid field) {
 		return (state, action) -> {
 			AgentPosition result = state;
@@ -59,6 +62,7 @@ public class MassimFunctions {
 		};
 	}
 
+	// Distanz gemäß Manhatten metrik
 	public static ToDoubleFunction<Node<AgentPosition, MassimAction>> createManhattanDistanceFunction
 			(Set<AgentPosition> goals) {
 		return node -> {

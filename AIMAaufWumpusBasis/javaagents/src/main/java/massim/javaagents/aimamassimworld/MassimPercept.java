@@ -1,16 +1,19 @@
 package massim.javaagents.aimamassimworld;
 
 import aima.core.agent.Percept;
-
+// Percepts, die vom EfficientMassimAgent für die Karte verarbeitet werden
+// Hier wird noch zwischen obstacle und temporaryBlocked untgerschieden,
+// was wahrscheinlich überflüssig ist, das auch obstacles entfernt / bewegt werden können
+// TODO Es ist eigentlich Quatsch, dass bei den set-Methoden die Koordinate übergeben wird, die sollte beim anlegen des Objekts einmalig gesetzt werden
 public class MassimPercept implements Percept {
-	private boolean obstacle;
-	private boolean dispenser;
-	private boolean temporaryBlocked;
-	private boolean roleZoneCell;
-	private boolean goalZoneCell;
-	private int x;
-	private int y;
-	String type;
+	private boolean obstacle; // dienst der markierung von Feldern mit obstacles
+	private boolean dispenser; // markiert ein Feld mit einem Dispenser und setzt dessen Typen
+	private boolean temporaryBlocked; // Feld ist aktuell blockiert, z.B. durch entity (Agent) oder Block
+	private boolean roleZoneCell; // Feld gehört zur role zone
+	private boolean goalZoneCell; // Feld gehört zur goal zone
+	private int x; // x-Koordinate
+	private int y; // y-Koordinate
+	String type; // wenn dispenser, dann markiert dies den Typen
 	
 	public void setObstacle(int x, int y)
 	{

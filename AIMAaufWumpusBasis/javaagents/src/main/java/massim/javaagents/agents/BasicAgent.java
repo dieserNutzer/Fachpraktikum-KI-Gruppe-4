@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * A very basic agent.
  */
-public class BasicAgent extends Agent {
+public class BasicAgent extends Team4Agent {
 
     private int lastID = -1;
 
@@ -19,6 +19,7 @@ public class BasicAgent extends Agent {
      */
     public BasicAgent(String name, MailService mailbox) {
         super(name, mailbox);
+        System.out.println("Basic Constr.");
     }
 
     @Override
@@ -27,8 +28,9 @@ public class BasicAgent extends Agent {
     @Override
     public void handleMessage(Percept message, String sender) {}
 
-    @Override
-    public Action step() {
+    //@Override
+    /*public Action step() {
+    	System.out.println("BasicStep");
         List<Percept> percepts = getPercepts();
         for (Percept percept : percepts) {
             if (percept.getName().equals("actionID")) {
@@ -43,5 +45,5 @@ public class BasicAgent extends Agent {
             }
         }
         return null;
-    }
+    }*/
 }

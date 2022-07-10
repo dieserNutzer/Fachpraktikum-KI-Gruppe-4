@@ -3,7 +3,9 @@ package massim.javaagents.aimamassimworld;
 import java.util.List;
 import java.util.ArrayList;
 
-
+// Wurde eingeführt, um die Nachbarfelder eines Dispensers zu bestimmen.
+// Für die Wegfindung sollen die Nachbarfelder eines Dispensers als mögliches  Ziel gelten
+// und nicht der Dispenser selbst (request und attach wird von Nachbarfeldern ausgeführt.)
 public class MassimDispenserCell extends MassimCell {
 	private String type;
 

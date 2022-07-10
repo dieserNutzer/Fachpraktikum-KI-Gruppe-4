@@ -2,7 +2,9 @@ package massim.javaagents.aimamassimworld;
 
 import java.util.*;
 
-
+// Beschreibt das Spielfeld
+// Die move Funktionen beschreiben die Auswirkung auf die entsprechenden Agentenposition
+// TODO Wenn die SpielWelt mal rund ist, müssen hier die Randbeschränkungen der Welt entfernt werden.  
 public class MassimGrid {
 
 	private int gridXDimension;
