@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Wir können die beiden auch verschmelzen, da spricht nix dagegen.
  */
 
-public class Team4Agent extends Agent {
+public class Team4Agent2 extends Agent {
 
     private int lastID = -1;
     private EfficientMassimAgent massimAgent;
@@ -43,9 +43,11 @@ public class Team4Agent extends Agent {
     String role;
     // Das ist der zu der Aufgabe gehörende Block, wenn er am Agenten attached ist. TODO Muss überarbeitet werden, wenn Aufgaben mit mehreren Block angegangen werden.
     Block attachedBlock;
+    // Anzahl der Schritte, für die ein Agent die Aktion attach nicht ausführt, um zu vermeiden, dass mehrere Agenten den gleichen Block greifen
+    int dontTouch;
     
 
-    public Team4Agent(String name, MailService mailbox) {
+    public Team4Agent2(String name, MailService mailbox) {
         super(name, mailbox);
         massimAgent = new EfficientMassimAgent();
     	vision = 5; // TODO aus aktueller Rolle auslesen
@@ -161,7 +163,7 @@ public class Team4Agent extends Agent {
     	return retVal;
     }
     
-    // zurücksetzen von Karteninformationen, die jeden Takt neu ausgewertet werden müssen.
+    // zurücksetzen von Informationen, die jeden Takt neu ausgewertet werden müssen.
     protected void resetValues()
     {
     	requestAction = false;
@@ -170,6 +172,11 @@ public class Team4Agent extends Agent {
         neighbouringDispenser = null;
         knownBlock.clear();
         attachedThing.clear();
+        
+        // dontTouch muss in jedem Step um eins reduziert werden. (Das ist die Anzahl der Steps, in denen ein Agent kein attach
+        // durchführen soll)
+        if (dontTouch >= 0)
+        	dontTouch -= 1;
     }
     
     // Wird aufgerufen, wenn der Agent an einer Task arbeitet.
@@ -287,10 +294,19 @@ public class Team4Agent extends Agent {
     		// Block liegt bereit
     		if (blockToGrab != null)
     		{
+    			// Wenn dontTouch > 0, hat ein anderer Agent einen Block gegriffen. Um zu vermeide, dass
+    			// zwei Agenten den gleich Block greifen, wird ein paar Steps gewartet, um einen Agenten mit Block
+    			// weggehen zu lassen.
+    			if (dontTouch > 0)
+    			{
+    				return new Action("skip");
+    			}
+    			
+    			// Agent greift sich einen Block und sagt den anderen Agenten, keinen Block zu attachen
+    			mailbox.broadcast(new Percept("DontTouch"), getName());
+    			
     			// Block nehmen, dass heißt: an den Server attach mit richtigem Parameter
     			// senden.
-    			// TODO Es kann passieren, dass zwei Agenten unseres Teams unbeabsichtigt denselben Block greifen,
-    			// dieses bitte durch Kommunikation verhindern.
     			if (blockToGrab.x == 0 && blockToGrab.y == 1)
     			{
             		return new Action("attach", new Identifier("s"));
@@ -715,14 +731,13 @@ public class Team4Agent extends Agent {
             		break;
         		}
         		
-        		// Muss nochmal getester werden, scheint nicht zu funktionieren.
-        		// Der Server sollte eigentlich die aktuelle Stepnummer mitteilen
-        		/*case "step":
+        		// Der Server teilt die aktuelle Step-Nummer mit
+        		case "step":
         		{
             		
         			step = ((Numeral) percept.getParameters().get(0)).getValue().intValue();
             		break;
-        		}*/
+        		}
         		
         		// Percepts beschreibt ein Ding, dass attached ist
         		case "attached":
@@ -776,6 +791,13 @@ public class Team4Agent extends Agent {
         	{
         		massimAgent.updateAgentPosition(MassimAction.SOUTH);
         	}
+        }
+        
+        // Da letzte Runde ein Block erfolgreich attached worden ist, wird anderen
+        // Agenten mitgeteilt, nicht zu attachen.
+        if (lastAction.equals("attach") && lastActionResult.equals("success"))
+        {
+        	mailbox.broadcast(new Percept("DontTouch"), getName());
         }
 
         
@@ -892,13 +914,16 @@ public class Team4Agent extends Agent {
     public void handlePercept(Percept percept) {}
 
     @Override
-    public void handleMessage(Percept message, String sender) {}
+    public void handleMessage(Percept message, String sender) {
+    	
+    	// Wird einem Agenten DontTouch mitgeteilt, führt er für einige Steps kein eigenes attach durch,
+    	// um zu verhindern, dass mehrere Agenten nach demselben Block greifen.
+    	if (message.getName().equals("DontTouch"))
+    		dontTouch = 3;
+    }
 
     @Override
     public Action step() {
-    	// zählt die Steps mit
-    	// TODO step sollte vom Server gesetzt werden. sollte vom Server kommen
-        step++;
         
 
         // zurücksetzen  der Werte, die jeden step neu gesetzt werden müssen.
