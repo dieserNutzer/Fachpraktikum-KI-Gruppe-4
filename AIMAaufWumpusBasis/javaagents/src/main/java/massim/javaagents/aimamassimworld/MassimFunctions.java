@@ -8,12 +8,26 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
+import java.util.Collections;
 
-
+/**
+ * Enthaelt statische Funktionen zu Bewegungsaktionen eines Agenten auf einem Grid.
+ * Es kann eine Liste der durchfuehrbaren Bewegungsaktionen abgefragt werden,
+ * sowie das Ergebnis einer Bewegungsfunktion. Ausserdem kann die kuerzeste Entfernung
+ * (gemaess Manhattan-Metrik) zu einem Ziel erfragt werden.
+ * Klasse und Methoden sind angelehnt an das Wumpusworld-Beispiel des AIMA-Pakets.
+ *
+ * @author Florian Dollinger
+ */
 public class MassimFunctions {
 
-	// diefiniert die Funktionen, die auf einem Feld ausgeführt werden können und eine Änderung des Zustands (Agentenposition)
-	// bewirken
+	/**
+	 * diefiniert die Funktionen, die auf einem Feld ausgefuehrt werden koennen und eine Aenderung des Zustands (Agentenposition)
+	 * bewirken
+	 *
+	 *
+	 * @author Florian Dollinger
+	 */
 	public static Function<AgentPosition, List<MassimAction>> createActionsFunction(MassimGrid field) {
 		return state -> {
 			List<MassimAction> actions = new ArrayList<>();
@@ -33,11 +47,19 @@ public class MassimFunctions {
 			if (!pos.equals(state))
 				actions.add(MassimAction.SOUTH);
 			
+			// Reihenfolge der Aktionen zufaellig anordnen, damit nicht eine Laufrichtungrichtung bevorzugt wird. 
+			Collections.shuffle(actions);
+			
 			return actions;
 		};
 	}
 
-	// Weist einer Agentenpositon und einer Aktion eine Folge Agentenposition zu.
+	/**
+	 * Weist einer Agentenpositon und einer Aktion eine darauf resultierende Agentenposition zu.
+	 *
+	 *
+	 * @author Florian Dollinger
+	 */
 	public static BiFunction<AgentPosition, MassimAction, AgentPosition> createResultFunction(MassimGrid field) {
 		return (state, action) -> {
 			AgentPosition result = state;
@@ -62,7 +84,12 @@ public class MassimFunctions {
 		};
 	}
 
-	// Distanz gemäß Manhatten metrik
+	/**
+	 * Gibt die kleinste Entfernung von der aktuellen Agentenposition zu einer Zielposition zurueck
+	 *
+	 *
+	 * @author Florian Dollinger
+	 */
 	public static ToDoubleFunction<Node<AgentPosition, MassimAction>> createManhattanDistanceFunction
 			(Set<AgentPosition> goals) {
 		return node -> {
