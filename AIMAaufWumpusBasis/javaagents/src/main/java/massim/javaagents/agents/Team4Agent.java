@@ -45,6 +45,8 @@ public class Team4Agent extends Agent {
     Block attachedBlock;
     // Anzahl der Schritte, für die ein Agent die Aktion attach nicht ausführt, um zu vermeiden, dass mehrere Agenten den gleichen Block greifen
     int dontTouch;
+    // taskValid ist true, wenn der Server die aktuell bearbeitete Task als Percept zurück gibt. Sonst ist sie abgelaufen.
+    boolean taskValid;
     
 
     public Team4Agent(String name, MailService mailbox) {
@@ -169,6 +171,7 @@ public class Team4Agent extends Agent {
     	requestAction = false;
     	onGoalZone = false;
     	onRoleZone = false;
+        taskValid = false;
         neighbouringDispenser = null;
         knownBlock.clear();
         attachedThing.clear();
@@ -620,15 +623,25 @@ public class Team4Agent extends Agent {
             		String s = ((Identifier) lp.get(2)).getValue();
             		
             		
+            		// Falls der Name der im Percept mitgeteilten Task der aktuell bearbeiteten Task entspricht,
+            		// dann ist diese Valid und kann weiter bearbeitet werden.
+            		if (task != null && task.name.equals(((Identifier) percept.getParameters().get(0)).getValue()))
+            			taskValid = true;
+            		
+            		
             		// Falls Task genau einen Block benötigt (andere werden aktuell noch nicht betrachtet)
             		if (pl.size() == 1) {
             			// Falls der AGent aktuell keie Task verfolgt oder die Task abgelaufen ist
             			if (task == null || step > task.deadline)
+            			{
             				// kreiere neue Task, die vom Agenten verfolgt werden soll.
             				setTask(new Task(
             						((Identifier) percept.getParameters().get(0)).getValue(), // Name der Task
             						((Numeral) percept.getParameters().get(1)).getValue().intValue(), // deadline der Task
             						s, xx, yy)); // Typ des benötigten Blocks, und die Koordinaten, an denen sich der Block bei submit befinden muss
+            				// Task ist valid und kann bearbeitet werden, da diese gerade aus den Percepts entnommen worden ist.
+            				taskValid = true;
+            			}
             		}
             		
             		break;
@@ -822,6 +835,14 @@ public class Team4Agent extends Agent {
     			if (b.x == t.x && b.y == t.y) {
     				attachedBlock = b;}
     		}
+    	}
+    	
+    	// Falls der Agent noch eine Task besitzt, diese aber nicht valid ist, dann setze
+    	// aktuelle Task auf null und skippe die Aktion.
+    	if (!taskValid && task != null)
+    	{
+    		task = null;
+    		return new Action("skip");
     	}
     	
     	// Wenn keine aktuelle Task verfolgt wird, dann alle Blöcke wegwerfen
