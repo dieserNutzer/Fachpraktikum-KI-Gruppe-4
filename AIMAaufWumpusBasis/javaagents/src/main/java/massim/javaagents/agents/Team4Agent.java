@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Wir können die beiden auch verschmelzen, da spricht nix dagegen.
  */
 
-public class Team4Agent2 extends Agent {
+public class Team4Agent extends Agent {
 
     private int lastID = -1;
     private EfficientMassimAgent massimAgent;
@@ -47,7 +47,7 @@ public class Team4Agent2 extends Agent {
     int dontTouch;
     
 
-    public Team4Agent2(String name, MailService mailbox) {
+    public Team4Agent(String name, MailService mailbox) {
         super(name, mailbox);
         massimAgent = new EfficientMassimAgent();
     	vision = 5; // TODO aus aktueller Rolle auslesen
