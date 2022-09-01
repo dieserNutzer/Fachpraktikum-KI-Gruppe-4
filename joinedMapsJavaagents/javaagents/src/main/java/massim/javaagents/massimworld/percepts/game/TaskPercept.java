@@ -1,10 +1,13 @@
 package massim.javaagents.massimworld.percepts.game;
 
-import eis.iilang.*;
-import massim.javaagents.massimworld.Coordinates;
+import eis.iilang.Function;
+import eis.iilang.Parameter;
+import eis.iilang.ParameterList;
+import eis.iilang.Percept;
 import massim.javaagents.massimworld.game.Game;
-import massim.javaagents.massimworld.game.task.MassimTask;
 import massim.javaagents.massimworld.game.task.TaskRequirement;
+import massim.javaagents.massimworld.game.task.gametask.GameTask;
+import massim.javaagents.massimworld.map.Coordinates;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,7 @@ public class TaskPercept extends GamePercept {
 
     @Override
     public void updateGame(Game game) {
-        game.addTask(new MassimTask(name, deadline, reward, requirements));
+        game.addTask(new GameTask(name, deadline, reward, requirements));
     }
 
     private List<TaskRequirement> readRequirements(ParameterList requirementParams) {

@@ -1,10 +1,11 @@
-package massim.javaagents.massimworld;
+package massim.javaagents.massimworld.agentcoordinator;
 
 import aima.core.agent.impl.SimpleAgent;
 import massim.javaagents.aimamassimworld.MassimAction;
 import massim.javaagents.aimamassimworld.MassimPercept;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.Game;
+import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.MassimCell;
 import massim.javaagents.massimworld.map.MassimMap;
 import massim.javaagents.massimworld.percepts.map.EntityPercept;

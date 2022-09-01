@@ -1,11 +1,11 @@
 package massim.javaagents.massimworld.agent;
 
 
-import massim.javaagents.massimworld.Coordinates;
 import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.actions.MoveAction;
 import massim.javaagents.massimworld.game.role.Role;
 import massim.javaagents.massimworld.game.task.MassimTask;
+import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.Direction;
 import massim.javaagents.massimworld.percepts.MassimPercept;
 import massim.javaagents.massimworld.percepts.agent.AgentPercept;

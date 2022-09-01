@@ -1,7 +1,7 @@
 package massim.javaagents.massimworld.actions;
 
 import eis.iilang.Action;
-import massim.javaagents.massimworld.Coordinates;
+import massim.javaagents.massimworld.map.Coordinates;
 
 public abstract class MassimAction {
 

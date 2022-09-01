@@ -4,15 +4,20 @@ import java.util.Random;
 
 public enum Direction {
 
-    EAST("e"),
-    SOUTH("s"),
-    WEST("w"),
-    NORTH("n");
+    EAST("e", Coordinates.of(1,0)),
+    SOUTH("s", Coordinates.of(0, 1)),
+    WEST("w", Coordinates.of(-1, 0)),
+    NORTH("n", Coordinates.of(0, -1));
+
+    private static int current = 0;
 
     private final String symbol;
 
-    Direction(String symbol) {
+    private final Coordinates offset;
+
+    Direction(String symbol, Coordinates offset) {
         this.symbol = symbol;
+        this.offset = offset;
     }
 
     public static Direction getRandomDirection() {
@@ -28,6 +33,15 @@ public enum Direction {
         return symbol;
     }
 
+    public Coordinates getOffset() {
+        return offset;
+    }
+
+    public static Direction getNext() {
+       current = current == 3 ? 0 : current +1;
+        return getByIntValue(current);
+    }
+
     public static Direction getBySymbol(String symbol) {
         return switch (symbol) {
             case "e" -> Direction.EAST;
@@ -37,6 +51,8 @@ public enum Direction {
             default -> throw new IllegalArgumentException("unknown direction " + symbol);
         };
     }
+
+
 
     public static Direction getByIntValue(int number) {
         return switch (number) {

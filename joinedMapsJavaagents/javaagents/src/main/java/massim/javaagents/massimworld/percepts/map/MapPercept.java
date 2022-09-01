@@ -2,7 +2,7 @@ package massim.javaagents.massimworld.percepts.map;
 
 import eis.iilang.Numeral;
 import eis.iilang.Percept;
-import massim.javaagents.massimworld.Coordinates;
+import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.MassimCell;
 import massim.javaagents.massimworld.percepts.MassimPercept;
 

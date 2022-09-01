@@ -1,6 +1,6 @@
 package massim.javaagents.massimworld.game.task;
 
-import massim.javaagents.massimworld.Coordinates;
+import massim.javaagents.massimworld.map.Coordinates;
 
 public class TaskRequirement {
     private final Coordinates relPosition;

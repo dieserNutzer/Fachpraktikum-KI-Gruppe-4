@@ -1,6 +1,7 @@
-package massim.javaagents.massimworld.map;
+package massim.javaagents.massimworld.map.view;
 
-import massim.javaagents.massimworld.Coordinates;
+import massim.javaagents.massimworld.map.Coordinates;
+import massim.javaagents.massimworld.map.MassimCell;
 
 import java.util.HashSet;
 import java.util.List;

@@ -2,7 +2,7 @@ package massim.javaagents.massimworld.actions;
 
 import eis.iilang.Action;
 import eis.iilang.Identifier;
-import massim.javaagents.massimworld.Coordinates;
+import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.Direction;
 
 import java.util.List;
@@ -37,6 +37,10 @@ public class MoveAction extends MassimAction {
         } else {
             return Coordinates.ZERO;
         }
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 
     @Override

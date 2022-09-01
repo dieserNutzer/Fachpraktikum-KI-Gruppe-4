@@ -1,7 +1,7 @@
 package massim.javaagents.massimworld.map;
 
-import massim.javaagents.massimworld.Coordinates;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
+import massim.javaagents.massimworld.map.view.MassimMapView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class MassimMap {
 
@@ -147,6 +148,37 @@ public class MassimMap {
     }
 
 
+    public boolean isAllowed(Coordinates adjacent) {
+        MassimCell cell = massimCellsByCoordinates.get(adjacent);
+        if (cell == null || !cell.isAllowed()) {
+            return false;
+        }  else {
+         return true;
+        }
+    }
 
+    public boolean containsGoalZone() {
+        return massimCellsByCoordinates.values().stream()
+                .filter(cell -> cell.isGoalZone())
+                .findAny()
+                .isPresent();
+    }
 
+    public Set<Coordinates> getGoalZoneCoordinates() {
+        return massimCellsByCoordinates.values().stream()
+                .filter(cell -> cell.isGoalZone())
+                .map(MassimCell::getCoordinates)
+                .collect(Collectors.toSet());
+    }
+
+    public MassimCell getAdjacentCell(Coordinates coordinates, Direction direction) {
+        return massimCellsByCoordinates.get(coordinates.getAdjacent(direction));
+    }
+
+    public Set<Coordinates> getDispenserCoordinates(String blockType) {
+        return massimCellsByCoordinates.values().stream()
+                .filter(cell -> cell.containsBlock(blockType))
+                .map(MassimCell::getCoordinates)
+                .collect(Collectors.toSet());
+    }
 }

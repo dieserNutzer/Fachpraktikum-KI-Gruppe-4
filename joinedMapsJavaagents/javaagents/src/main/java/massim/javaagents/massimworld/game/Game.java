@@ -1,7 +1,7 @@
 package massim.javaagents.massimworld.game;
 
-import massim.javaagents.massimworld.game.task.MassimTask;
-import massim.javaagents.massimworld.game.task.Tasks;
+import massim.javaagents.massimworld.game.task.gametask.GameTask;
+import massim.javaagents.massimworld.game.task.gametask.OneBlockTask;
 import massim.javaagents.massimworld.percepts.MassimPercept;
 import massim.javaagents.massimworld.percepts.game.GamePercept;
 
@@ -16,7 +16,7 @@ public class Game {
 
     private int score = 0;
 
-    private Tasks tasks = new Tasks();
+    private GameTasks tasks = new GameTasks();
 
     private Game() {
     }
@@ -36,7 +36,7 @@ public class Game {
     }
 
 
-    public void addTask(MassimTask task) {
+    public void addTask(GameTask task) {
         tasks.addTask(task);
     }
 
@@ -64,11 +64,11 @@ public class Game {
         this.score = score;
     }
 
-    public Tasks getTasks() {
+    public GameTasks getTasks() {
         return tasks;
     }
 
-    public void setTasks(Tasks tasks) {
-        this.tasks = tasks;
+    public List<OneBlockTask> getOneBlockTasks() {
+        return tasks.getActiveTasks(currentStep).stream().filter(t -> t instanceof OneBlockTask).map(t -> (OneBlockTask) t).toList();
     }
 }

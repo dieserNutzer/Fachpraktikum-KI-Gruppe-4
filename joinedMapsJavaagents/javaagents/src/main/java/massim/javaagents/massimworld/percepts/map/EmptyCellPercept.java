@@ -1,6 +1,6 @@
 package massim.javaagents.massimworld.percepts.map;
 
-import massim.javaagents.massimworld.Coordinates;
+import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.MassimCell;
 
 public class EmptyCellPercept extends MapPercept {

@@ -1,8 +1,9 @@
-package massim.javaagents.massimworld;
+package massim.javaagents.massimworld.agentcoordinator;
 
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
+import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.MassimMap;
-import massim.javaagents.massimworld.map.MassimMapView;
+import massim.javaagents.massimworld.map.view.MassimMapView;
 
 import java.util.HashMap;
 import java.util.Map;

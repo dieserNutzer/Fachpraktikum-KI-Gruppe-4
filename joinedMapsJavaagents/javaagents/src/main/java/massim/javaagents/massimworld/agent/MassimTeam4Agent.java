@@ -1,23 +1,26 @@
 package massim.javaagents.massimworld.agent;
 
 import eis.iilang.Action;
-import eis.iilang.Identifier;
 import eis.iilang.Percept;
 import massim.javaagents.MailService;
 import massim.javaagents.agents.Agent;
-import massim.javaagents.aimamassimworld.MassimAction;
-import massim.javaagents.massimworld.AgentGroupCoordinator;
-import massim.javaagents.massimworld.Coordinates;
+import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.actions.MoveAction;
+import massim.javaagents.massimworld.agentcoordinator.AgentGroupCoordinator;
 import massim.javaagents.massimworld.game.Game;
-import massim.javaagents.massimworld.game.task.TaskPlanner;
-import massim.javaagents.massimworld.game.task.subtask.Subtask;
+import massim.javaagents.massimworld.game.task.MassimTask;
+import massim.javaagents.massimworld.game.task.gametask.subtask.Subtask;
+import massim.javaagents.massimworld.game.task.generaltask.ExplorationTask;
+import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.Direction;
+import massim.javaagents.massimworld.map.MassimCell;
 import massim.javaagents.massimworld.map.MassimMap;
+import massim.javaagents.massimworld.map.things.Block;
 import massim.javaagents.massimworld.percepts.MassimPercept;
 import massim.javaagents.massimworld.percepts.MassimPerceptReader;
 import massim.javaagents.massimworld.percepts.map.EmptyCellPercept;
 import massim.javaagents.massimworld.percepts.map.MapPercept;
+import massim.javaagents.massimworld.planner.TaskPlanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +37,8 @@ public class MassimTeam4Agent extends Agent {
     private MassimMap massimMap = new MassimMap(this);
 
     private TaskPlanner taskPlanner = new TaskPlanner(this);
+
+    Block attachedBlock;
 
     private AgentGroupCoordinator agentGroupCoordinator = AgentGroupCoordinator.getAgentGroupCoordinator();
 
@@ -76,12 +81,16 @@ public class MassimTeam4Agent extends Agent {
     @Override
     public Action step() {
 
+        MassimTask task = taskPlanner.getTaskByAgent(this);
 
-
-        //getNextSubtask().getAction();
-
-        MoveAction moveAction = new MoveAction(Direction.getRandomDirection());
-        Action action = moveAction.createEisAction();
+        MassimAction massimAction;
+        if ( task instanceof ExplorationTask) {
+            ExplorationTask eTask = (ExplorationTask) task;
+            massimAction = eTask.getNextAction(this, massimMap);
+        } else {
+            massimAction = new MoveAction(Direction.getRandomDirection());
+        }
+        Action action = massimAction.createEisAction();
 
         return action;
     }
@@ -115,31 +124,27 @@ public class MassimTeam4Agent extends Agent {
         return agentState;
     }
 
-    public void setAgentState(AgentState agentState) {
-        this.agentState = agentState;
-    }
-
-    protected Action getMoveAction(MassimAction ma) {
-        Action retVal = null;
-
-        if (ma == null) {
-            return null;
-        }
-
-        if (ma.getSymbol().equals("West")) {
-            retVal = new Action("move", new Identifier("w"));
-        }
-        if (ma.getSymbol().equals("North")) {
-            retVal = new Action("move", new Identifier("n"));
-        }
-        if (ma.getSymbol().equals("South")) {
-            retVal = new Action("move", new Identifier("s"));
-        }
-        if (ma.getSymbol().equals("East")) {
-            retVal = new Action("move", new Identifier("e"));
-        }
-        return retVal;
-    }
+//    protected Action getMoveAction(MassimAction ma) {
+//        Action retVal = null;
+//
+//        if (ma == null) {
+//            return null;
+//        }
+//
+//        if (ma.getSymbol().equals("West")) {
+//            retVal = new Action("move", new Identifier("w"));
+//        }
+//        if (ma.getSymbol().equals("North")) {
+//            retVal = new Action("move", new Identifier("n"));
+//        }
+//        if (ma.getSymbol().equals("South")) {
+//            retVal = new Action("move", new Identifier("s"));
+//        }
+//        if (ma.getSymbol().equals("East")) {
+//            retVal = new Action("move", new Identifier("e"));
+//        }
+//        return retVal;
+//    }
 
 
     private List<MassimPercept> fillViewWithEmptyMapPercepts(List<MassimPercept> massimPercepts) {
@@ -171,4 +176,21 @@ public class MassimTeam4Agent extends Agent {
     }
 
 
+    public MassimCell getAdjacentCell(Direction direction) {
+        Coordinates current = getCurrentPosition();
+        MassimCell cell = massimMap.getAdjacentCell(current, direction);
+        return cell;
+    }
+
+    private Coordinates getCurrentPosition() {
+        return massimMap.getAgentPositionByAgent(this);
+    }
+
+    public boolean hasAttachedBlock() {
+        return attachedBlock != null;
+    }
+
+    public Block getAttachedBlock() {
+        return attachedBlock;
+    }
 }

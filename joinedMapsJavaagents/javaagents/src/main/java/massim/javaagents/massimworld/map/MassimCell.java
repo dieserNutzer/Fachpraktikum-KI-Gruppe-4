@@ -1,7 +1,6 @@
 package massim.javaagents.massimworld.map;
 
 
-import massim.javaagents.massimworld.Coordinates;
 import massim.javaagents.massimworld.game.Game;
 import massim.javaagents.massimworld.map.things.*;
 
@@ -59,6 +58,10 @@ public class MassimCell {
 		return this;
 	}
 
+	public boolean isAllowed() {
+		return getThing() == null;
+	}
+
 	public Coordinates getCoordinates() {
 		return coordinates;
 	}
@@ -98,6 +101,10 @@ public class MassimCell {
 		modified();
 	}
 
+	boolean containsBlock(String blockType) {
+		return thing != null && thing instanceof Block && ((Block) thing).getBlockType().equals(blockType);
+	}
+
 	private void modified() {
 		lastUpdatedStep = Game.getCurrentStep();
 	}
@@ -133,6 +140,8 @@ public class MassimCell {
 		}
 	}
 
+
+
 	public boolean isOlderThan(MassimCell update) {
 		return lastUpdatedStep < update.getLastUpdatedStep();
 	}
@@ -145,4 +154,8 @@ public class MassimCell {
 		return coordinates.equals(that.coordinates);
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(coordinates);
+	}
 }

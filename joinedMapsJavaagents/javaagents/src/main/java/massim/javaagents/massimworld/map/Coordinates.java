@@ -1,4 +1,4 @@
-package massim.javaagents.massimworld;
+package massim.javaagents.massimworld.map;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -31,6 +31,10 @@ public class Coordinates {
 
     public Coordinates withOffset(int offsetX, int offsetY) {
         return new Coordinates(this.x + offsetX, y + offsetY);
+    }
+
+    public Coordinates getAdjacent(Direction direction) {
+        return withOffset(direction.getOffset());
     }
 
     public Coordinates minus(Coordinates c) {
