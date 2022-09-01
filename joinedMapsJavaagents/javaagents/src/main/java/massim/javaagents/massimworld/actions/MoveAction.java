@@ -43,6 +43,10 @@ public class MoveAction extends MassimAction {
         return direction;
     }
 
+    public Coordinates applyToCoordinates(Coordinates coordinates) {
+        return coordinates.withOffset(getMoveOffset());
+    }
+
     @Override
     public Action createEisAction() {
         return new Action("move", List.of(new Identifier(direction.getSymbol())));

@@ -105,6 +105,10 @@ public class MassimCell {
 		return thing != null && thing instanceof Block && ((Block) thing).getBlockType().equals(blockType);
 	}
 
+	boolean containsDispenser(String blockType) {
+		return thing != null && thing instanceof Dispenser && ((Dispenser) thing).getBlockType().equals(blockType);
+	}
+
 	private void modified() {
 		lastUpdatedStep = Game.getCurrentStep();
 	}

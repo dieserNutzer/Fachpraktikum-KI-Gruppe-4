@@ -37,7 +37,9 @@ public class Game {
 
 
     public void addTask(GameTask task) {
-        tasks.addTask(task);
+        if (!tasks.getTasks().contains(task)) {
+            tasks.addTask(task);
+        }
     }
 
     public int getSteps() {
@@ -69,6 +71,6 @@ public class Game {
     }
 
     public List<OneBlockTask> getOneBlockTasks() {
-        return tasks.getActiveTasks(currentStep).stream().filter(t -> t instanceof OneBlockTask).map(t -> (OneBlockTask) t).toList();
+        return tasks.getActiveTasks(currentStep).stream().filter(t -> t.getRequirements().size()==1).map(OneBlockTask::new).toList();
     }
 }

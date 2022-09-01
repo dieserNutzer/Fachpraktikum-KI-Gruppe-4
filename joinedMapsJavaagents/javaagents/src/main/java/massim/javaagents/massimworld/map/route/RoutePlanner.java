@@ -8,6 +8,7 @@ import aima.core.search.informed.AStarSearch;
 import massim.javaagents.massimworld.actions.MoveAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.map.Coordinates;
+import massim.javaagents.massimworld.map.MassimMap;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +22,19 @@ public class RoutePlanner {
                 agent.getMap().getAgentPositionByAgent(agent),
                 MassimFunctions.createActionsFunction(agent.getMap()),
                 MassimFunctions.createResultFunction(agent.getMap()),
+                target::contains);
+        SearchForActions<Coordinates, MoveAction> search =
+                new AStarSearch<>(new GraphSearch<>(), MassimFunctions.createManhattanDistanceFunction(target));
+        Optional<List<MoveAction>> actions = search.findActions(problem);
+
+        return actions.orElse(Collections.emptyList());
+    }
+
+    public static List<MoveAction> planRouteFromStartToTarget(MassimMap massimMap, Coordinates start, Set<Coordinates> target) {
+        Problem<Coordinates, MoveAction> problem = new GeneralProblem<>(
+                start,
+                MassimFunctions.createActionsFunction(massimMap),
+                MassimFunctions.createResultFunction(massimMap),
                 target::contains);
         SearchForActions<Coordinates, MoveAction> search =
                 new AStarSearch<>(new GraphSearch<>(), MassimFunctions.createManhattanDistanceFunction(target));

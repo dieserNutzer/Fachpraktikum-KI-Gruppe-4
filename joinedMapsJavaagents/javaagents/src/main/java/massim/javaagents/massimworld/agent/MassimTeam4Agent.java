@@ -4,11 +4,13 @@ import eis.iilang.Action;
 import eis.iilang.Percept;
 import massim.javaagents.MailService;
 import massim.javaagents.agents.Agent;
+import massim.javaagents.massimworld.actions.AttachAction;
 import massim.javaagents.massimworld.actions.MassimAction;
-import massim.javaagents.massimworld.actions.MoveAction;
+import massim.javaagents.massimworld.actions.RequestAction;
 import massim.javaagents.massimworld.agentcoordinator.AgentGroupCoordinator;
 import massim.javaagents.massimworld.game.Game;
 import massim.javaagents.massimworld.game.task.MassimTask;
+import massim.javaagents.massimworld.game.task.gametask.subtask.RequestBlockFromDispenserSubtask;
 import massim.javaagents.massimworld.game.task.gametask.subtask.Subtask;
 import massim.javaagents.massimworld.game.task.generaltask.ExplorationTask;
 import massim.javaagents.massimworld.map.Coordinates;
@@ -38,6 +40,12 @@ public class MassimTeam4Agent extends Agent {
 
     private TaskPlanner taskPlanner = new TaskPlanner(this);
 
+    boolean planTasks = false;
+
+    public boolean isPlanTasks() {
+        return planTasks;
+    }
+
     Block attachedBlock;
 
     private AgentGroupCoordinator agentGroupCoordinator = AgentGroupCoordinator.getAgentGroupCoordinator();
@@ -66,13 +74,17 @@ public class MassimTeam4Agent extends Agent {
         // update agentState by AgentPercepts
         agentState.updateAgentState(massimPercepts);
 
-        // Sende die von PErcepts erfassten Daten nur an den EfficientMassimAgent, wenn
-        // ein request-Action-Percept vorlag. In den anderen STeps kommen auch keine
-        // Infos über Felder, und es würden zu viele Felder zu unrecht als begehbar
-        // eingestuft.
+        boolean mapContainsGoalZone = false;
+        if (massimMap.containsGoalZone()) {
+            mapContainsGoalZone = true;
+        }
 //        if (agentState.isRequestAction())
         agentGroupCoordinator.tellPerception(this, massimPercepts.stream().filter(mp -> mp instanceof MapPercept).map(mp -> (MapPercept) mp).collect(Collectors.toList()));
-//
+
+        if (mapContainsGoalZone == false && massimMap.containsGoalZone()) {
+            planTasks = true;
+        }
+        //
 //         if (taskPlanner.hasNewTask()) {
              agentState.setCurrentTask(taskPlanner.getTaskByAgent(this));
 //        }
@@ -88,11 +100,30 @@ public class MassimTeam4Agent extends Agent {
             ExplorationTask eTask = (ExplorationTask) task;
             massimAction = eTask.getNextAction(this, massimMap);
         } else {
-            massimAction = new MoveAction(Direction.getRandomDirection());
+            Subtask subtask = task.getCurrentSubtask();
+            decideAction(subtask);
         }
         Action action = massimAction.createEisAction();
 
         return action;
+    }
+
+    private Action decideAction(Subtask subtask) {
+        if (subtask instanceof RequestBlockFromDispenserSubtask) {
+            String blockType = ((RequestBlockFromDispenserSubtask) subtask).getBlockType();
+            Direction direction =  massimMap.getAdjacentDispenserCoordinates(blockType);
+            return (new RequestAction(direction)).createEisAction();
+        }
+        if (subtask instanceof RequestBlockFromDispenserSubtask) {
+            String blockType = ((RequestBlockFromDispenserSubtask) subtask).getBlockType();
+            Direction direction =  massimMap.getAdjacentDispenserCoordinates(blockType);
+            return (new AttachAction(direction)).createEisAction();
+        }
+        if (subtask instanceof S) {
+            String blockType = ((RequestBlockFromDispenserSubtask) subtask).getBlockType();
+            Direction direction =  massimMap.getAdjacentDispenserCoordinates(blockType);
+            return (new RequestAction(direction)).createEisAction();
+        }
     }
 
     public int getVision() {

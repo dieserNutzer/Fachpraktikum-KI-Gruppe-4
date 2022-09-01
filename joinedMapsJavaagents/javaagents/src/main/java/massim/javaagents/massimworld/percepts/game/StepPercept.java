@@ -2,6 +2,7 @@ package massim.javaagents.massimworld.percepts.game;
 
 import eis.iilang.Percept;
 import massim.javaagents.massimworld.game.Game;
+import massim.javaagents.massimworld.map.MassimCell;
 
 public class StepPercept extends GamePercept {
 
@@ -15,4 +16,5 @@ public class StepPercept extends GamePercept {
     public void updateGame(Game game) {
         game.setCurrentStep(step);
     }
+
 }

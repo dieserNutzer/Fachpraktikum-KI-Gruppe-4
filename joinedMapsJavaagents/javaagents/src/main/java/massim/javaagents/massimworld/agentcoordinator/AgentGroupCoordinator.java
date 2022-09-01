@@ -59,6 +59,7 @@ public class AgentGroupCoordinator extends SimpleAgent<MassimPercept, MassimActi
             }
         }
 
+
     }
 
     // TODO team name

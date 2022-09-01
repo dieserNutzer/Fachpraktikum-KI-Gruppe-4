@@ -9,6 +9,10 @@ public class Dispenser extends Thing {
         this.blockType = blockType;
     }
 
+    public String getBlockType() {
+        return blockType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

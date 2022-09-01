@@ -1,15 +1,14 @@
 package massim.javaagents.massimworld.game.task.gametask.subtask;
 
 import massim.javaagents.massimworld.actions.MassimAction;
-import massim.javaagents.massimworld.actions.MoveAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 
-import java.util.ArrayList;
-import java.util.List;
+public class RequestBlockFromDispenserSubtask extends Subtask {
 
-public class GetBlockFromDispenserSubtask extends Subtask {
+    String blockType;
 
-    public GetBlockFromDispenserSubtask() {
+    public RequestBlockFromDispenserSubtask(String blockType) {
+        this.blockType = blockType;
     }
 
     @Override
@@ -17,6 +16,7 @@ public class GetBlockFromDispenserSubtask extends Subtask {
         return null;
     }
 
-
-
+    public String getBlockType() {
+        return blockType;
+    }
 }

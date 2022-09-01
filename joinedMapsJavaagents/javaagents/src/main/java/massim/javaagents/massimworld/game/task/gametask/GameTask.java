@@ -1,9 +1,11 @@
 package massim.javaagents.massimworld.game.task.gametask;
 
+import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.game.task.MassimTask;
 import massim.javaagents.massimworld.game.task.TaskRequirement;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GameTask extends MassimTask {
 
@@ -30,6 +32,11 @@ public class GameTask extends MassimTask {
         return name;
     }
 
+    @Override
+    public MassimAction getNextAction() {
+        return null;
+    }
+
     public int getDeadline() {
         return deadline;
     }
@@ -50,4 +57,18 @@ public class GameTask extends MassimTask {
 //
 //        )
 //    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GameTask)) return false;
+        GameTask gameTask = (GameTask) o;
+        return name.equals(gameTask.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

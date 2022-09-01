@@ -50,7 +50,7 @@ public class TaskPlanner {
 
         // evaluate available tasks
         if (!massimMap.containsGoalZone()) {
-            // keep going
+            int i = 1;// keep going
 //            for (MassimTeam4Agent agent: tasksByAgent.keySet()) {
 //                tasksByAgent.put(agent, new ExplorationTask(Direction.getNext()));
 //            }
@@ -59,14 +59,20 @@ public class TaskPlanner {
                 List<OneBlockTask> oneBlockTasks = new ArrayList<>();
                 for (OneBlockTask oneBlockTask: Game.game().getOneBlockTasks()) {
                     OneBlockTask copy = oneBlockTask.copy();
-                    GameTaskCostEvaluator.planOneBlockTask(copy, agent);
-                    oneBlockTasks.add(copy);
+                    int costs = GameTaskCostEvaluator.planOneBlockTask(copy, agent);
+                    if (costs > -1) {
+                        oneBlockTasks.add(copy);
+                    }
                 }
-                OneBlockTask agentTask = oneBlockTasks.stream()
-                        .sorted(Comparator.comparing(OneBlockTask::getEstimatedSteps).reversed())
-                        .findFirst().get();
-                tasksByAgent.put(agent, agentTask);
+                if (!oneBlockTasks.isEmpty()) {
+                    OneBlockTask agentTask = oneBlockTasks.stream()
+                            .sorted(Comparator.comparing(OneBlockTask::getEstimatedSteps).reversed())
+                            .findFirst().get();
+                    tasksByAgent.put(agent, agentTask);
+                }
             }
+        } else {
+            int j = 1;
         }
 
 

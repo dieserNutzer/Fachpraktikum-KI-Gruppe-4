@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -176,9 +177,17 @@ public class MassimMap {
     }
 
     public Set<Coordinates> getDispenserCoordinates(String blockType) {
-        return massimCellsByCoordinates.values().stream()
-                .filter(cell -> cell.containsBlock(blockType))
+        Set<Coordinates> dispenserCellCoordinates = massimCellsByCoordinates.values().stream()
+                .filter(cell -> cell.containsDispenser(blockType))
                 .map(MassimCell::getCoordinates)
                 .collect(Collectors.toSet());
+        Set<Coordinates> adjacentFreeCellsCoordinates = new HashSet<>();
+        dispenserCellCoordinates.forEach(coor -> {
+            if (getAdjacentCell(coor, Direction.EAST).isAllowed()) adjacentFreeCellsCoordinates.add(getAdjacentCell(coor, Direction.EAST).getCoordinates());
+            if (getAdjacentCell(coor, Direction.SOUTH).isAllowed()) adjacentFreeCellsCoordinates.add(getAdjacentCell(coor, Direction.SOUTH).getCoordinates());
+            if (getAdjacentCell(coor, Direction.WEST).isAllowed()) adjacentFreeCellsCoordinates.add(getAdjacentCell(coor, Direction.WEST).getCoordinates());
+            if (getAdjacentCell(coor, Direction.NORTH).isAllowed()) adjacentFreeCellsCoordinates.add(getAdjacentCell(coor, Direction.NORTH).getCoordinates());
+        });
+        return adjacentFreeCellsCoordinates;
     }
 }
