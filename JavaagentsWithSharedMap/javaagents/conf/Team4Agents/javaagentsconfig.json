@@ -1,0 +1,12 @@
+{
+  "agents" : [
+    {
+      "count":  10,
+      "start-index":  1,
+      "agent-prefix":  "Team4",
+      "entity-prefix":  "connectionTeam4",
+      "team":  "Team4",
+      "class": "MassimTeam4Agent"
+    }
+  ]
+}
