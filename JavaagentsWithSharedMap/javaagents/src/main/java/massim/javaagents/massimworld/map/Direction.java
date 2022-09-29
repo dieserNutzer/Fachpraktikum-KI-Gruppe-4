@@ -2,6 +2,11 @@ package massim.javaagents.massimworld.map;
 
 import java.util.Random;
 
+/**
+ * The direction type represents a direction and his massim string value,
+ * and contains various convenient methods
+ * for obtaining other directions, e.g. the opposite direction.
+ */
 public enum Direction {
 
     EAST("e", Coordinates.of(1,0)),
@@ -51,11 +56,6 @@ public enum Direction {
         };
     }
 
-    @Override
-    public String toString() {
-        return symbol;
-    }
-
     public String getSymbol() {
         return symbol;
     }
@@ -97,5 +97,9 @@ public enum Direction {
             throw new IllegalArgumentException("unknown direction offset " + coordinates);
     }
 
+    @Override
+    public String toString() {
+        return symbol;
+    }
 
 }

@@ -6,7 +6,6 @@ import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.actions.RequestAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.task.MassimTask;
-import massim.javaagents.massimworld.game.task.gametask.GameTaskCostEvaluator;
 import massim.javaagents.massimworld.map.Direction;
 import massim.javaagents.massimworld.map.things.BlockType;
 import org.slf4j.Logger;
@@ -54,12 +53,12 @@ public class RequestSubtask extends AgentSubtask {
         Direction direction = agent.getMap().getAdjacentDispenserDirection(agent.getCurrentCoordinates(), blockType);
         if (direction == null) {
             LOG.error("no adjacent dispenser for block type {} found", blockType);
-            cancelTask();
+            setCanceled();
         }
         if (agent.getMap().getAdjacentCell(agent.getCurrentCoordinates(), direction).containsBlockOfType(blockType)) {
             setFinished();
         } else if (!agent.getMap().getAdjacentCell(agent.getCurrentCoordinates(), direction).isEmpty()) {
-            cancelTask();
+            setCanceled();
         }
         return new RequestAction(direction);
     }

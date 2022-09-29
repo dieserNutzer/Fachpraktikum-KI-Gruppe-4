@@ -2,6 +2,9 @@ package massim.javaagents.massimworld.actions;
 
 import java.util.Set;
 
+/**
+ * The ActionResult enum encapsulates the value of the lastActionResult percept.
+ */
 public enum ActionResult {
 
     UNPROCESSED("unprocessed"),

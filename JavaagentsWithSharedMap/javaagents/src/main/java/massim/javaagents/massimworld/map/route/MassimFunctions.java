@@ -14,11 +14,11 @@ import java.util.function.ToDoubleFunction;
 
 import static massim.javaagents.massimworld.map.Direction.*;
 
-
+/**
+ * Provide functions necessary for executing the A*-algorithm from the aima-core package (details see pom.xml).
+ */
 public class MassimFunctions {
 
-	// diefiniert die Funktionen, die auf einem Feld ausgeführt werden können und eine Änderung des Zustands (Agentenposition)
-	// bewirken
 	public static Function<Coordinates, List<MoveAction>> createActionsFunction(MassimMap massimMap) {
 		return state -> {
 			List<MoveAction> actions = new ArrayList<>();
@@ -42,7 +42,6 @@ public class MassimFunctions {
 		};
 	}
 
-	// Weist einer Agentenpositon und einer Aktion eine Folge Agentenposition zu.
 	public static BiFunction<Coordinates, MoveAction, Coordinates> createResultFunction(MassimMap massimMap) {
 		return (position, action) -> {
 			Coordinates result = switch (action.getDirection()) {
@@ -55,7 +54,6 @@ public class MassimFunctions {
 		};
 	}
 
-	// Distanz gemäß Manhatten metrik
 	public static ToDoubleFunction<Node<Coordinates, MoveAction>> createManhattanDistanceFunction
 			(Set<Coordinates> goals) {
 		return node -> {

@@ -3,7 +3,6 @@ package massim.javaagents.massimworld.game.task.agenttask.composite;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.role.RoleType;
 import massim.javaagents.massimworld.game.task.agenttask.AgentTask;
-import massim.javaagents.massimworld.game.task.gametask.GameTaskCostEvaluator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +18,7 @@ public class AcquireRoleTask extends CompositeTask {
     public AcquireRoleTask(RoleType roleType, List<AgentTask> agentTasks) {
         super("acquireRoleTask", agentTasks);
         this.roleType = roleType;
-        super.agentTasks = agentTasks;
+        super.subtasks = agentTasks;
     }
 
     public AcquireRoleTask(RoleType roleType) {

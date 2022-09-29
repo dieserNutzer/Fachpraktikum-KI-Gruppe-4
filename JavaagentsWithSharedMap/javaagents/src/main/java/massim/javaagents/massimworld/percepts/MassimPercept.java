@@ -7,6 +7,10 @@ import massim.javaagents.massimworld.map.MassimCell;
 
 import java.util.List;
 
+/**
+ * The superclasss for percepts read by PerceptReader.
+ * Containing several hlper methods for reading
+ */
 public abstract class MassimPercept {
 
     protected int readInt(Percept percept, int pos) {

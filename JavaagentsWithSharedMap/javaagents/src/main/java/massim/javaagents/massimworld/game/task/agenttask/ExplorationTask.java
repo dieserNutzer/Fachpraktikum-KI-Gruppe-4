@@ -54,8 +54,9 @@ public class ExplorationTask extends AgentTask {
         if (agent.getAdjacentCell(direction) != null && (agent.getAdjacentCell(direction).getThing() instanceof Obstacle)) {
             MassimCell massimCell = agent.getMap().getNextEmptyCellInDirection(agent.getCurrentCoordinates(), direction);
             if (massimCell != null) {
-                movePlan = RoutePlanner.planRouteForAgentToTarget(agent, Set.of(massimCell.getCoordinates()));
-                if (!movePlan.isEmpty()) {
+                List<MoveAction> movePlanProposal = RoutePlanner.planRouteForAgentToTarget(agent, Set.of(massimCell.getCoordinates()));
+                if (!movePlan.isEmpty() && movePlan.size() < 5) {
+                    movePlan = movePlanProposal;
                     return movePlan.remove(0);
                 }
             }

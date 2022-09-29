@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 
 public class AgentNamePercept extends AgentPercept {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AgentNamePercept.class);
-
     private String agentName;
 
     public AgentNamePercept(Percept percept) {

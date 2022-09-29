@@ -19,6 +19,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The agent state percepted by the agent as result of his perception processing.
+ * Only valid for one simulation step, recreated by the perceptions occuring at next perception time.
+ */
 public class AgentState {
 
     private static final Logger LOG = LoggerFactory.getLogger(AgentState.class);
@@ -188,10 +192,6 @@ public class AgentState {
             }
         }
     }
-
-//    public void rotate(Rotation rotation) {
-//        attachedBlocks = attachedBlocks.stream().map(block->block.rotate(rotation)).toList();
-//    }
 
     public boolean detach(Coordinates coordinates) {
         return attachedThings.remove(Pair.of(coordinates, null));

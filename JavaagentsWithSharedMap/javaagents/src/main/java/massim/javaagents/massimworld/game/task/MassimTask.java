@@ -3,13 +3,14 @@ package massim.javaagents.massimworld.game.task;
 import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 
+import static massim.javaagents.massimworld.game.task.TaskState.CANCELED;
+import static massim.javaagents.massimworld.game.task.TaskState.FINISHED;
+
 public abstract class MassimTask {
 
     protected final String name;
 
-    protected boolean finished = false;
-
-    protected boolean cancelled = false;
+    protected TaskState taskState;
 
     public MassimTask(String name) {
         this.name = name;
@@ -21,11 +22,11 @@ public abstract class MassimTask {
     }
 
     public boolean isFinished(MassimTeam4Agent agent) {
-        return finished;
+        return taskState == FINISHED;
     }
 
     protected void setFinished() {
-        finished = true;
+        taskState = FINISHED;
     }
 
     public abstract void update(MassimTeam4Agent agent);
@@ -34,12 +35,12 @@ public abstract class MassimTask {
 
     public abstract MassimTask getCurrentSubtask();
 
-    protected void cancelTask() {
-        cancelled = true;
+    protected void setCanceled() {
+        taskState = CANCELED;
     }
 
     public boolean isCanceled() {
-        return cancelled;
+        return taskState == CANCELED;
     }
 
     public abstract void replan(MassimTeam4Agent agent);
@@ -56,7 +57,7 @@ public abstract class MassimTask {
     public String toString() {
         return "MassimTask{" +
                 "name='" + name + '\'' +
-                ", finished=" + finished +
+                ", taskState=" + taskState +
                 '}';
     }
 }

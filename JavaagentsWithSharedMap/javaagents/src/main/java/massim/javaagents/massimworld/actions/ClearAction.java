@@ -14,11 +14,6 @@ public class ClearAction extends MassimAction {
         this.direction = direction;
     }
 
-    @Override
-    public Coordinates getMoveOffset() {
-        return Coordinates.ZERO;
-    }
-
     public Direction getDirection() {
         return direction;
     }

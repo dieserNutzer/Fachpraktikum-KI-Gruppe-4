@@ -1,5 +1,9 @@
 package massim.javaagents.massimworld.actions;
 
+/**
+ * The type of a massim action connects the enum value with the massim action name
+ * for creating an eis.iilang.Action for the scheduler.
+ */
 public enum ActionType {
 
     SKIP("skip"),

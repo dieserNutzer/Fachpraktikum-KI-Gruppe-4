@@ -7,9 +7,10 @@ import massim.javaagents.massimworld.map.Direction;
 
 import java.util.List;
 
+/**
+ * Action for moving one step in the given direction.
+ */
 public class MoveAction extends MassimAction {
-
-    // TODO handle list of directions
     private final Direction direction;
 
     public MoveAction(Direction direction) {

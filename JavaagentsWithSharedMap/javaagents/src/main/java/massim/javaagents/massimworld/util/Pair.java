@@ -1,5 +1,10 @@
 package massim.javaagents.massimworld.util;
 
+/**
+ * Provides a pair of objects with first and second element.
+ * @param <T> type of the first element
+ * @param <U> type of the second element
+ */
 public class Pair<T,U> {
     public T first;
     public U second;

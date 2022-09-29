@@ -12,6 +12,10 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+/**
+ * The map for the massim simulation environment, works as knowledge base for the agents,
+ * that are connected to the given instance.
+ */
 public class MassimMap {
 
     private static final Logger LOG = LoggerFactory.getLogger(MassimMap.class);
@@ -66,21 +70,20 @@ public class MassimMap {
                 MassimCell newCell = currentCell.createCopyShiftedBy(agentPosition.inverse().withOffset(offset));
                 relativeToAgent.put(newCell.getCoordinates(), newCell);
             }
-
-//            Map<Coordinates, MassimCell> relativeToAgent = Coordinates.getAllCoordinatesWithinDistance(agentPosition, agent.getVision()).stream()
-//                    .map(coor -> getMassimCell(coor))
-//                    .map(cell -> cell.shiftByCoordinates(agentPosition.inverse().withOffset(offset)))
-//                    .collect(Collectors.toMap(MassimCell::getCoordinates, Function.identity()));
-
-
             return new MassimMapView(relativeToAgent);
         } catch (Exception e ) {
             e.printStackTrace();
-//            throw e;
         }
         return null;
     }
 
+    /**
+     * Joins the current map of otherAgent with the map of thisAgent.
+     * @param thisAgent the agent of the current map, that had encountered otherAgent.
+     * @param otherAgent the other agent of the encounter
+     * @param shift the position of otherAgent realtive to thisAgent
+     * @return true iff the map of otherAgent was successfully joined
+     */
     public boolean joinMapByAgent(MassimTeam4Agent thisAgent, MassimTeam4Agent otherAgent, Coordinates shift) {
         LOG.info("update cells of map of agent {} with cells of map of agent {}", thisAgent.getName(), otherAgent.getName());
 
@@ -94,7 +97,6 @@ public class MassimMap {
         Map<Coordinates, MassimCell> otherMassimCellsByCoordinates = otherMap.getMassimCellsByCoordinates();
         Coordinates otherAgentPositionInOtherMap = otherMap.getAgentPositionByAgent(otherAgent);
         Coordinates thisAgentPosition = getAgentPositionByAgent(thisAgent);
-//        Coordinates otherAgentPositionInThisMap = thisAgentPosition.withOffset(shift).minus(otherAgentPositionInOtherMap);
         Coordinates transformPositionInOtherMapIntoThisMap = thisAgentPosition.withOffset(shift).minus(otherAgentPositionInOtherMap);
         LOG.info("this agent position {}, other agents position in other map {}, shift {}, trafo {}", thisAgentPosition, otherAgentPositionInOtherMap, shift, transformPositionInOtherMapIntoThisMap);
         Map<Coordinates, MassimCell> newCellsByCoordinates = new HashMap<>();
@@ -134,9 +136,7 @@ public class MassimMap {
             LOG.error("thisAgent  position {} + shift {} = ", agentPositionsByAgent.get(thisAgent), shift, agentPositionsByAgent.get(thisAgent).withOffset(shift));
             LOG.error("otherAgent position {}", agentPositionsByAgent.get(otherAgent));
             LOG.error("transformation {}", transformPositionInOtherMapIntoThisMap);
-            LOG.error("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         }
-
 
         return true;
     }

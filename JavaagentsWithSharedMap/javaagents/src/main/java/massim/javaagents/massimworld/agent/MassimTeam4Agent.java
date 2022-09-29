@@ -37,6 +37,10 @@ import static massim.javaagents.massimworld.actions.Rotation.CCW;
 import static massim.javaagents.massimworld.actions.Rotation.CW;
 import static massim.javaagents.massimworld.map.Direction.*;
 
+/**
+ * The agent implementation for this javaagent package.
+ * Contains many helper methods to retrieve agent state and map states directly.
+ */
 public class MassimTeam4Agent extends Agent {
 
     private static final Logger LOG = LoggerFactory.getLogger(MassimTeam4Agent.class);
@@ -317,15 +321,6 @@ public class MassimTeam4Agent extends Agent {
     @Override
     public String toString() {
         return "MassimTeam4Agent{" +
-//                "agentState=" + agentState +
-//                ", agentTaskPlanner=" + agentTaskPlanner +
-//                ", massimMap=" + massimMap +
-//                ", taskPlanner=" + taskPlanner +
-//                ", planTasks=" + planTasks +
-//                ", massimTask=" + massimTask +
-//                ", attachedBlock=" + attachedBlock +
-//                ", attachedBlockRelativePosition=" + attachedBlockRelativePosition +
-//                ", agentGroupCoordinator=" + agentGroupCoordinator +
                 "name='" + name + '\'' +
                 '}';
     }

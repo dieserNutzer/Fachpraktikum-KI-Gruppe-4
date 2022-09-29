@@ -9,34 +9,37 @@ import massim.javaagents.massimworld.game.task.agenttask.AgentTask;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A task that is composed of different subtasks.
+ */
 public abstract class CompositeTask extends AgentTask {
 
-    protected List<AgentTask> agentTasks = new ArrayList<>();
+    protected List<AgentTask> subtasks = new ArrayList<>();
 
-    public CompositeTask(String name, List<AgentTask> agentTasks) {
+    public CompositeTask(String name, List<AgentTask> subtasks) {
         super(name);
-        this.agentTasks = agentTasks;
+        this.subtasks = subtasks;
     }
 
-    public List<AgentTask> getAgentTasks() {
-        return agentTasks;
+    public List<AgentTask> getSubtasks() {
+        return subtasks;
     }
 
-    public void setAgentTasks(List<AgentTask> agentTasks) {
-        this.agentTasks = agentTasks;
+    public void setSubtasks(List<AgentTask> subtasks) {
+        this.subtasks = subtasks;
     }
 
     @Override
     public void update(MassimTeam4Agent agent) {
-        if (agentTasks != null && !agentTasks.isEmpty()) {
-            agentTasks.get(0).update(agent);
-            if (agentTasks.get(0).isFinished(agent)) {
-                agentTasks.remove(0);
-                if (agentTasks.isEmpty()) {
+        if (subtasks != null && !subtasks.isEmpty()) {
+            subtasks.get(0).update(agent);
+            if (subtasks.get(0).isFinished(agent)) {
+                subtasks.remove(0);
+                if (subtasks.isEmpty()) {
                     setFinished();
                 }
-            } else if (agentTasks.get(0).isCanceled()) {
-                cancelTask();
+            } else if (subtasks.get(0).isCanceled()) {
+                setCanceled();
             }
         } else {
             setFinished();
@@ -45,12 +48,12 @@ public abstract class CompositeTask extends AgentTask {
 
     @Override
     public boolean hasSubtask() {
-        return !agentTasks.isEmpty();
+        return !subtasks.isEmpty();
     }
 
     @Override
     public MassimTask getCurrentSubtask() {
-        return agentTasks.get(0);
+        return subtasks.get(0);
     }
 
     @Override
@@ -60,15 +63,15 @@ public abstract class CompositeTask extends AgentTask {
 
     @Override
     public MassimAction getNextAction(MassimTeam4Agent agent) {
-        if (agentTasks.isEmpty() || isFinished(agent) || isCanceled()) {
+        if (subtasks.isEmpty() || isFinished(agent) || isCanceled()) {
             setFinished();
             return new SkipAction();
         }
-        return agentTasks.get(0).getNextAction(agent);
+        return subtasks.get(0).getNextAction(agent);
     }
 
     @Override
     public int getStepEstimation() {
-        return agentTasks.stream().mapToInt(AgentTask::getStepEstimation).sum();
+        return subtasks.stream().mapToInt(AgentTask::getStepEstimation).sum();
     }
 }

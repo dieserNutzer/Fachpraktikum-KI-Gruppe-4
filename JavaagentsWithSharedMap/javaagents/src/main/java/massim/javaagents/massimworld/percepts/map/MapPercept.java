@@ -8,6 +8,9 @@ import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.MassimCell;
 import massim.javaagents.massimworld.percepts.MassimPercept;
 
+/**
+ * Superclass for percepts affecting the map.
+ */
 public abstract class MapPercept extends MassimPercept {
 
 	protected final Coordinates coordinates;

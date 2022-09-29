@@ -1,7 +1,5 @@
 package massim.javaagents.massimworld.game.task.agenttask.subtask;
 
-import massim.javaagents.massimworld.actions.ActionResult;
-import massim.javaagents.massimworld.actions.ActionType;
 import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.actions.SubmitAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
@@ -25,7 +23,7 @@ public class SubmitSubtask extends AgentSubtask {
             setFinished();
         } else if (SUBMIT.equals(agent.getAgentState().getLastActionType()) &&
                    FAILED.equals(agent.getAgentState().getLastActionResult()) ) {
-            cancelTask();
+            setCanceled();
         }
     }
 
@@ -37,11 +35,6 @@ public class SubmitSubtask extends AgentSubtask {
     @Override
     public MassimTask getCurrentSubtask() {
         return null;
-    }
-
-    @Override
-    public boolean isFinished(MassimTeam4Agent agent) {
-        return finished;
     }
 
     @Override

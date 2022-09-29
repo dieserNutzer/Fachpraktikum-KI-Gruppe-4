@@ -6,20 +6,21 @@ import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.actions.MoveAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.task.MassimTask;
+import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.things.BlockType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoveToBlockTask extends AgentTask {
+public class DigToRoleZoneTask extends AgentTask {
 
-    private final BlockType blockType;
+    private final List<Coordinates> roleZoneCoordinates;
 
     private List<MoveAction> movesToBlock = new ArrayList<>();
 
-    public MoveToBlockTask(BlockType blockType, List<MoveAction> movesToBlock) {
+    public DigToRoleZoneTask(BlockType blockType, List<Coordinates> roleZoneCoordinates, List<MoveAction> movesToBlock) {
         super("moveToBlockTask");
-        this.blockType = blockType;
+        this.roleZoneCoordinates = roleZoneCoordinates;
         this.movesToBlock = movesToBlock;
     }
 
@@ -27,9 +28,6 @@ public class MoveToBlockTask extends AgentTask {
 //        this.blockType = blockType;
 //    }
 
-    public BlockType getBlockType() {
-        return blockType;
-    }
 
     public List<MoveAction> getMovesToBlock() {
         return movesToBlock;
@@ -81,7 +79,6 @@ public class MoveToBlockTask extends AgentTask {
             movesString += ma.toString() + "\n";
         }
         return "MoveToBlockTask{" +
-                "blockType='" + blockType + '\'' +
                 ", movesToBlock=" +  movesString +
                 ", name='" + name + '\'' +
                 ", taskState=" + taskState +

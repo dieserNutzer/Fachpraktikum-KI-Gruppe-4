@@ -31,6 +31,8 @@ public class TwoBlockTaskRule extends GameRule {
 
     @Override
     public boolean isFeasible(MassimMap massimMap, Map<MassimTeam4Agent, MassimTask> tasksByAgent) {
+        long startTime = System.currentTimeMillis();
+
         if (!massimMap.containsGoalZone() && !Game.game().getTwoBlockTasks().isEmpty()) {
             return false;
         }
@@ -93,7 +95,7 @@ public class TwoBlockTaskRule extends GameRule {
             Pair<MassimTeam4Agent, GetBlockToGoalZoneTask> agentAndTaskPairMinTask2 = null;
             for (Pair<MassimTeam4Agent, GetBlockToGoalZoneTask> task1 : block1Subtasks) {
                 for (Pair<MassimTeam4Agent, GetBlockToGoalZoneTask> task2 : block1Subtasks) {
-                    if (task1.getFirst().equals(task2.getFirst())) {
+                    if (task1 == null || task1.getFirst() == null || task2 == null || task1.getFirst().equals(task2.getFirst())) {
                         continue;
                     }
                     if (task1.getSecond().getStepEstimation() + task2.getSecond().getStepEstimation() < minEstimatedSteps) {
@@ -137,6 +139,9 @@ public class TwoBlockTaskRule extends GameRule {
                     agentAndTaskPairMinTask2.getFirst(), agentTasks2)));
 
             twoBlockTasks.add(twoBlockTask);
+            if (System.currentTimeMillis() - startTime > 1_000) {
+                LOG.info("TwoBlockTaskRule:isFeasible stopped after {} milli seconds", System.currentTimeMillis() - startTime);
+            }
         }
         if (twoBlockTasks.isEmpty()) {
             return false;
@@ -144,6 +149,10 @@ public class TwoBlockTaskRule extends GameRule {
 
         List<TwoBlockTask> descTwoBlockTaskList = twoBlockTasks.stream().sorted(Comparator.comparing(TwoBlockTask::getTaskValue).reversed()).toList();
         twoBlockTasksByMassimMap.put(massimMap, descTwoBlockTaskList.get(0));
+
+        long endTime = System.currentTimeMillis();
+        LOG.info("TwoBlockTaskRule:isFeasible took {} milli seconds", endTime - startTime);
+
         return true;
     }
 

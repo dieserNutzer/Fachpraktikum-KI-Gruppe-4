@@ -6,6 +6,10 @@ import massim.javaagents.massimworld.map.things.*;
 
 import java.util.Objects;
 
+/**
+ * Represents a cell on the MassimMap.
+ * Contains the coordinates and additional information as described at the concrete fields
+ */
 public class MassimCell {
 	private final Coordinates coordinates;
 
@@ -18,8 +22,6 @@ public class MassimCell {
 	private Marker marker;
 
 	private Thing thing;
-
-
 
 	public MassimCell(Coordinates coordinates, int currentStep) {
 		this.coordinates = coordinates;

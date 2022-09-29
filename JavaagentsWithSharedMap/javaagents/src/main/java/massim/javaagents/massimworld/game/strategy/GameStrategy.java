@@ -3,7 +3,6 @@ package massim.javaagents.massimworld.game.strategy;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.strategy.rule.*;
 import massim.javaagents.massimworld.game.task.MassimTask;
-import massim.javaagents.massimworld.game.task.gametask.TwoBlockTask;
 import massim.javaagents.massimworld.map.MassimMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +19,12 @@ public class GameStrategy {
 //            new TaskCanceledRemoveTaskRule(200),
 //            new TaskNotFeasibleRemoveTaskRule(200),
 
-            new TwoBlockTaskRule(200),
+//            new TwoBlockTaskRule(200),
 
             new OneBlockTaskRule(100),
             new AcquireWorkerRule(100),
 
-            new ExploreRule(10)
+            new ExplorationRule(10)
     );
 
     public static void applyRules(MassimMap massimMap, Map<MassimTeam4Agent, MassimTask> tasksByAgent) {

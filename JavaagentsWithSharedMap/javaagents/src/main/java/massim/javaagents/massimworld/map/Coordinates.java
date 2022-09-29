@@ -9,7 +9,14 @@ import java.util.stream.Collectors;
 
 import static massim.javaagents.massimworld.map.Direction.*;
 
+/**
+ * Represent the coordinates of any entity, e.g. an angent on map.
+ * The Coordinates may be absolute or relative coordinates depending on the context.
+ * Additionally the class provides helper methods mathematical calculations and relations to directions.
+ */
 public class Coordinates {
+
+
 
     public static Coordinates ZERO = Coordinates.of(0,0);
     private final int x;
@@ -33,10 +40,6 @@ public class Coordinates {
         }
     }
 
-//    public Coordinates withOffset(int offsetX, int offsetY) {
-//        return new Coordinates(this.x + offsetX, y + offsetY);
-//    }
-
     public Coordinates getAdjacent(Direction direction) {
         return withOffset(direction.getOffset());
     }
@@ -49,7 +52,7 @@ public class Coordinates {
         if (multiplier != 0) {
             return new Coordinates(x * multiplier, y * multiplier);
         } else {
-            // TODO handle case
+//            LOG.error()
             return Coordinates.of(x, y);
         }
     }
@@ -58,21 +61,9 @@ public class Coordinates {
         return Coordinates.of(-x, -y);
     }
 
-//    public int manhattanDistance(Coordinates other) {
-//        return Math.abs(x - other.getX()) + Math.abs(y - other.getY());
-//    }
-
     public boolean isInverse(Coordinates other) {
         return (x + other.getX() == 0) && (y + other.getY() == 0);
     }
-
-//    public boolean haveTogetherZeroSum(Coordinates c1, Coordinates c2, Coordinates c3) {
-//        return (getX() + c2.getX() + c3.getX() == 0) && (getY() + c2.getY() + c3.getY() == 0);
-//    }
-//
-//    public static boolean haveZeroSum(Coordinates c1, Coordinates c2, Coordinates c3) {
-//        return (c1.getX() + c2.getX() + c3.getX() == 0) && (c1.getY() + c2.getY() + c3.getY() == 0);
-//    }
 
     public boolean containsZeroAndOne() {
         return (x == 0 && y==1) || (x==1 && y==0);

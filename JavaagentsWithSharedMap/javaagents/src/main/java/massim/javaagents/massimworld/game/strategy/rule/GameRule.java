@@ -27,7 +27,7 @@ public abstract class GameRule {
 
     /**
      * Checks if the given concrete rule is applicable for the agent.
-     * This may contain conditions of the given game state,
+     * This may include conditions of the given game state,
      * the agent state, his current tasks, and conditions of the agent's map.
      * @param agent the agent for whom the applicability is checked.
      * @return true iff the given rule is applicable

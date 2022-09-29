@@ -38,11 +38,14 @@ public class TaskPlanner {
     }
 
     public void planTaskforAgentsWithRuleSet() {
-        GameStrategy.applyRules(massimMap, tasksByAgent);
+//        GameStrategy.applyRules(massimMap, tasksByAgent);
 
-        tasksByAgent.keySet().forEach(agent ->
-            GameStrategy.applyRules(agent)
-        );
+        tasksByAgent.keySet().forEach(agent -> {
+            MassimTask massimTask = GameStrategy.applyRules(agent);
+            if (massimTask != null) {
+                tasksByAgent.put(agent, massimTask);
+            }
+        });
     }
 
     public void joinTaskPlanner(TaskPlanner otherTaskPlanner) {

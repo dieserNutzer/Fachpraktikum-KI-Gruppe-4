@@ -1,16 +1,14 @@
 package massim.javaagents.massimworld.game.strategy.rule;
 
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
-import massim.javaagents.massimworld.game.role.RoleType;
 import massim.javaagents.massimworld.game.task.MassimTask;
 import massim.javaagents.massimworld.game.task.agenttask.ExplorationTask;
-import massim.javaagents.massimworld.game.task.gametask.GameTaskCostEvaluator;
 import massim.javaagents.massimworld.map.Direction;
 import massim.javaagents.massimworld.map.MassimMap;
 
-public class ExploreRule extends GameRule {
+public class ExplorationRule extends GameRule {
 
-    public ExploreRule(int priority) {
+    public ExplorationRule(int priority) {
         super("exploreRule", priority);
     }
 

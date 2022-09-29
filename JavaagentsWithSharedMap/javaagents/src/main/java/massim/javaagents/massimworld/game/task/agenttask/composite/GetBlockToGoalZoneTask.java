@@ -1,7 +1,6 @@
 package massim.javaagents.massimworld.game.task.agenttask.composite;
 
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
-import massim.javaagents.massimworld.game.task.TaskRequirement;
 import massim.javaagents.massimworld.game.task.agenttask.AgentTask;
 import massim.javaagents.massimworld.map.things.BlockType;
 
@@ -13,7 +12,7 @@ public class GetBlockToGoalZoneTask extends CompositeTask {
     public GetBlockToGoalZoneTask(String name, BlockType blockType, List<AgentTask> agentTasks) {
         super(name, agentTasks);
         this.blockType = blockType;
-        super.agentTasks = agentTasks;
+        super.subtasks = agentTasks;
     }
 
 

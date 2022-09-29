@@ -13,7 +13,7 @@ public class AcquireBlockTask extends CompositeTask {
     public AcquireBlockTask(String name, BlockType blockType, List<AgentTask> agentTasks) {
         super(name, agentTasks);
         this.blockType = blockType;
-        super.agentTasks = agentTasks;
+        super.subtasks = agentTasks;
     }
 
 

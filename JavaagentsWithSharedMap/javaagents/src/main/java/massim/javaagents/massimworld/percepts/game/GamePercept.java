@@ -4,6 +4,9 @@ import massim.javaagents.massimworld.agent.AgentState;
 import massim.javaagents.massimworld.map.MassimCell;
 import massim.javaagents.massimworld.percepts.MassimPercept;
 
+/**
+ * Superclass for percepts affecting the game state.
+ */
 public abstract class GamePercept extends MassimPercept {
 
     int order = 1;
