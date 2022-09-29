@@ -1,5 +1,8 @@
 package massim.javaagents.massimworld.game.role;
 
+/**
+ * Describes the properties of the clear action.
+ */
 public class Clear {
 
     double chance;

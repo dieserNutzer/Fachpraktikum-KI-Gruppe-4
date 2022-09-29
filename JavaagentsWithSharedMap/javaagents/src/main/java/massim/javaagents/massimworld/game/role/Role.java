@@ -5,6 +5,10 @@ import massim.javaagents.massimworld.actions.ActionType;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Contains the properties of a massim simulation role
+ * as described in {@see https://github.com/agentcontest/massim_2022/blob/main/docs/scenario.md#percepts}
+ */
 public abstract class Role {
 
     protected RoleType roleType;

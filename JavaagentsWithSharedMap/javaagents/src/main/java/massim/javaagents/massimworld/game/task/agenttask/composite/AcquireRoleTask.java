@@ -9,9 +9,10 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Task to acquire a role of the given {@link RoleType}.
+ */
 public class AcquireRoleTask extends CompositeTask {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AcquireRoleTask.class);
 
     private final RoleType roleType;
 

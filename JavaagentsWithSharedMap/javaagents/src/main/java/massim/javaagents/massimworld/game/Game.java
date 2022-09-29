@@ -9,6 +9,10 @@ import massim.javaagents.massimworld.percepts.game.GamePercept;
 
 import java.util.List;
 
+/**
+ * Singleton class contains the game configuration and global game state,
+ * e.g. the current simulation step and the list of currently active {@link GameTask}.
+ */
 public class Game {
     private static final Game game = new Game();
 
@@ -39,12 +43,16 @@ public class Game {
         return game().getStep();
     }
 
+    /**
+     * Updates the game state with the massimPercepts of an agent, that applies to the game state
+     * i.e. the ones of type {@link GamePercept}.
+     * @param massimPercepts the percepts received by an agent
+     */
     public void updateGame(List<MassimPercept> massimPercepts) {
         massimPercepts.stream()
                 .filter(mp -> mp instanceof GamePercept)
                 .forEach(mp -> mp.updateGame(this));
     }
-
 
     public void addTask(GameTask task) {
         if (!tasks.getTasks().contains(task)) {

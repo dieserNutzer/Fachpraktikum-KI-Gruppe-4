@@ -3,6 +3,9 @@ package massim.javaagents.massimworld.game.task;
 import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.things.BlockType;
 
+/**
+ * Class dscribing a task requiremetn of a {@link MassimTask}.
+ */
 public class TaskRequirement {
     private final Coordinates relPosition;
     private final BlockType blockType;

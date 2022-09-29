@@ -6,6 +6,9 @@ import java.util.List;
 
 import static massim.javaagents.massimworld.actions.ActionType.*;
 
+/**
+ * Describes the worker role in the massim simulation.
+ */
 public class WorkerRole extends DefaultRole {
 
     protected RoleType roleType = RoleType.WORKER;

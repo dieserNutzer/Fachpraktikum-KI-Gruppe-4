@@ -1,7 +1,8 @@
 package massim.javaagents.massimworld.game.role;
 
-import massim.javaagents.massimworld.map.Direction;
-
+/**
+ * Describes the given role types of a massim simulation and their names, used in eis.lang.Percept.
+ */
 public enum RoleType {
 
     DEFAULT("default"),

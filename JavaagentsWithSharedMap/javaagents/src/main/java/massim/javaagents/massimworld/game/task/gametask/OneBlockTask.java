@@ -15,6 +15,9 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A One
+ */
 public class OneBlockTask extends GameTask {
 
     private static final Logger LOG = LoggerFactory.getLogger(OneBlockTask.class);
@@ -32,10 +35,6 @@ public class OneBlockTask extends GameTask {
 
     public OneBlockTask(GameTask gameTask) {
             super(gameTask.getName(), gameTask.deadline, gameTask.reward, gameTask.getRequirements(), 1, 100);
-    }
-
-    public OneBlockTask copy() {
-        return new OneBlockTask(name, deadline, reward, requirements);
     }
 
     public BlockType getBlockType() {

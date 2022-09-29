@@ -1,7 +1,7 @@
 package massim.javaagents.massimworld.game.task;
 
 /**
- * Describes the different states a MassimTask can have.
+ * Describes the different states of a {@link MassimTask}.
  */
 public enum TaskState {
     IN_PROGRESS,

@@ -1,5 +1,8 @@
 package massim.javaagents.massimworld.map.things;
 
+/**
+ * Abstract supperclass for things of the massim simulation.
+ */
 public abstract class Thing {
 
     protected Thing() {

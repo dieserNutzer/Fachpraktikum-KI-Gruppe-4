@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Contains route planning methods for different start and target fields on a given {@link MassimMap}.
+ */
 public class RoutePlanner {
 
     private static final Logger LOG = LoggerFactory.getLogger(AgentNamePercept.class);

@@ -8,8 +8,11 @@ import massim.javaagents.massimworld.map.MassimCell;
 import java.util.List;
 
 /**
- * The superclasss for percepts read by PerceptReader.
- * Containing several hlper methods for reading
+ * The superclasss for resulting percepts from the {@link MassimPerceptReader}.
+ * Containing several helper methods for reading eis.lang.Percepts and
+ * containing abstract methods for updating {@link Game}, {@link AgentState} and {@link MassimCell}.
+ * Subclasses are name according to the percept documentation
+ * {@see https://github.com/agentcontest/massim_2022/blob/main/docs/scenario.md#percepts}
  */
 public abstract class MassimPercept {
 

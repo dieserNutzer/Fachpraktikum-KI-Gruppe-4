@@ -1,7 +1,8 @@
 package massim.javaagents.massimworld.map.things;
 
-import massim.javaagents.massimworld.actions.ActionType;
-
+/**
+ * The marker Types of the massim simulation and their names used in eis.langPercepts.
+ */
 public enum MarkerType {
 
     CLEAR("clear"),        // the cell is about to be cleared

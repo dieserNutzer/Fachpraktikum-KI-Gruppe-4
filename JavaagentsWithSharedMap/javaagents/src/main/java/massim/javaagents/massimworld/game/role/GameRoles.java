@@ -12,7 +12,6 @@ public class GameRoles {
 
     public Role getGameRoleByType(RoleType roleType) {
         return gameRoles.stream().filter(r -> r.getRoleType().equals(roleType)).findFirst().orElse(null);
-//                .orElseThrow(new IllegalArgumentException("role of type not found " + roleType.getName()));
     }
 
 

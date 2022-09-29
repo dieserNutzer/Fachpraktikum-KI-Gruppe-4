@@ -6,6 +6,9 @@ import massim.javaagents.massimworld.map.things.BlockType;
 
 import java.util.List;
 
+/**
+ * Task to acquire a block of the given {@link BlockType}.
+ */
 public class AcquireBlockTask extends CompositeTask {
 
     private final BlockType blockType;

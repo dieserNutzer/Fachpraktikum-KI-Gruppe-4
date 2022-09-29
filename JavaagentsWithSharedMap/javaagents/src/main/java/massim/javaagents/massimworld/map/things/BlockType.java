@@ -1,5 +1,8 @@
 package massim.javaagents.massimworld.map.things;
 
+/**
+ * Enumerates the different block types of the massim simulation.
+ */
 public enum BlockType {
 
     B0("b0"),

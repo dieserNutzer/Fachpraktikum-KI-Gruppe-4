@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A task that is composed of different subtasks.
+ * A task composed of different subtasks.
  */
 public abstract class CompositeTask extends AgentTask {
 

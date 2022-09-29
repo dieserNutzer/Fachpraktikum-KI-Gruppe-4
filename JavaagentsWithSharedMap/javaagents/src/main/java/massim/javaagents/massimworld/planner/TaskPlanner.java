@@ -16,6 +16,11 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+/**
+ * The task planner for a group of agents sharing a {@link MassimMap}.
+ * Maps every contained agent to his current task.
+ * Uses this map for further task planning.
+ */
 public class TaskPlanner {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaskPlanner.class);
@@ -48,6 +53,10 @@ public class TaskPlanner {
         });
     }
 
+    /**
+     * Joins the other TaskPlanner to the current one,
+     * @param otherTaskPlanner
+     */
     public void joinTaskPlanner(TaskPlanner otherTaskPlanner) {
         tasksByAgent.putAll(otherTaskPlanner.getTasksByAgent());
         otherTaskPlanner
