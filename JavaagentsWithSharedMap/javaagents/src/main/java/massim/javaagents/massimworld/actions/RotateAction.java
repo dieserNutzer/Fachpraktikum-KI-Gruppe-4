@@ -3,8 +3,6 @@ package massim.javaagents.massimworld.actions;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 
-import java.util.List;
-
 public class RotateAction extends MassimAction {
 
     Rotation rotation;

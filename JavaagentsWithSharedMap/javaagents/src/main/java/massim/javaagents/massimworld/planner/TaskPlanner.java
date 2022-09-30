@@ -1,20 +1,16 @@
 package massim.javaagents.massimworld.planner;
 
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
-import massim.javaagents.massimworld.game.Game;
-import massim.javaagents.massimworld.game.role.RoleType;
 import massim.javaagents.massimworld.game.strategy.GameStrategy;
 import massim.javaagents.massimworld.game.task.MassimTask;
 import massim.javaagents.massimworld.game.task.agenttask.ExplorationTask;
-import massim.javaagents.massimworld.game.task.agenttask.composite.AcquireRoleTask;
-import massim.javaagents.massimworld.game.task.gametask.GameTaskCostEvaluator;
-import massim.javaagents.massimworld.game.task.gametask.OneBlockTask;
 import massim.javaagents.massimworld.map.Direction;
 import massim.javaagents.massimworld.map.MassimMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The task planner for a group of agents sharing a {@link MassimMap}.

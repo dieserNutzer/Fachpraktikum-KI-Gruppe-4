@@ -1,10 +1,10 @@
 package massim.javaagents.massimworld.game.task.agenttask.subtask;
 
+import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.task.MassimTask;
 import massim.javaagents.massimworld.game.task.agenttask.AgentTask;
 import massim.javaagents.massimworld.game.task.agenttask.composite.CompositeTask;
-import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.map.MassimMap;
 
 

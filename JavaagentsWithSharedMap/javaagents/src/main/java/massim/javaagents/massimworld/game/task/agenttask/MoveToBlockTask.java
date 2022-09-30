@@ -23,10 +23,6 @@ public class MoveToBlockTask extends AgentTask {
         this.movesToBlock = movesToBlock;
     }
 
-//    public MoveToDispenserTask(BlockType blockType) {
-//        this.blockType = blockType;
-//    }
-
     public BlockType getBlockType() {
         return blockType;
     }

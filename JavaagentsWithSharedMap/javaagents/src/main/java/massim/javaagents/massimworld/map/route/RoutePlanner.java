@@ -35,7 +35,7 @@ public class RoutePlanner {
                 new AStarSearch<>(new GraphSearch<>(), MassimFunctions.createManhattanDistanceFunction(target));
         Optional<List<MoveAction>> actions = search.findActions(problem);
 
-        if (actions == null || actions.isEmpty()) {
+        if (!actions.isPresent() || actions.get().isEmpty()) {
             LOG.info("planRouteForAgentToTarget found no path for {}", agent.getName() );
         } else {
             LOG.info("planRouteForAgentToTarget found  moves: {} for agent {}", actions.get().size(), agent.getName());
@@ -64,7 +64,7 @@ public class RoutePlanner {
                 new AStarSearch<>(new GraphSearch<>(), MassimFunctions.createManhattanDistanceFunction(target));
         Optional<List<MoveAction>> actions = search.findActions(problem);
 
-        if (actions == null || actions.isEmpty()) {
+        if (!actions.isPresent() || actions.get().isEmpty()) {
             LOG.info("planRouteFromStartToTarget found no path");
         } else {
             LOG.info("planRouteFromStartToTarget found  moves: {}", actions.get().size());

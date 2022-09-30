@@ -5,7 +5,8 @@ import massim.javaagents.massimworld.actions.SubmitAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.task.MassimTask;
 
-import static massim.javaagents.massimworld.actions.ActionResult.*;
+import static massim.javaagents.massimworld.actions.ActionResult.FAILED;
+import static massim.javaagents.massimworld.actions.ActionResult.SUCCESS;
 import static massim.javaagents.massimworld.actions.ActionType.SUBMIT;
 
 public class SubmitSubtask extends AgentSubtask {

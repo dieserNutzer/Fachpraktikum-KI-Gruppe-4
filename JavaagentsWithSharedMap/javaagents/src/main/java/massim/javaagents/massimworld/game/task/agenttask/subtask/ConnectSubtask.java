@@ -1,6 +1,5 @@
 package massim.javaagents.massimworld.game.task.agenttask.subtask;
 
-import massim.javaagents.massimworld.actions.AttachAction;
 import massim.javaagents.massimworld.actions.ConnectAction;
 import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
@@ -8,7 +7,6 @@ import massim.javaagents.massimworld.game.task.TaskRequirement;
 import massim.javaagents.massimworld.map.Direction;
 
 import static massim.javaagents.massimworld.actions.ActionResult.SUCCESS;
-import static massim.javaagents.massimworld.actions.ActionType.ATTACH;
 import static massim.javaagents.massimworld.actions.ActionType.CONNECT;
 
 public class ConnectSubtask extends AgentSubtask {

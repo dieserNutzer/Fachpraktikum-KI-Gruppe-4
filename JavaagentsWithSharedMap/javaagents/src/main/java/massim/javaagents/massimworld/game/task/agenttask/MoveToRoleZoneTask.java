@@ -16,10 +16,6 @@ public class MoveToRoleZoneTask extends AgentTask {
         this.movesToRoleZone = movesToRoleZone;
     }
 
-//    public MoveToRoleZoneTask(BlockType blockType) {
-//        this.blockType = blockType;
-//    }
-
 
     public List<MoveAction> getMovesToRoleZone() {
         return movesToRoleZone;

@@ -57,11 +57,6 @@ public class MassimTeam4Agent extends Agent {
 
     boolean replanSubtask = false;
 
-    MassimTask massimTask;
-
-    public boolean isPlanTasks() {
-        return planTasks;
-    }
 
     private AgentGroupCoordinator agentGroupCoordinator = AgentGroupCoordinator.getAgentGroupCoordinator();
 
@@ -95,16 +90,14 @@ public class MassimTeam4Agent extends Agent {
         if (massimMap.containsGoalZone()) {
             mapContainsGoalZone = true;
         }
-//        if (agentState.isRequestAction())
+
         agentGroupCoordinator.tellPerception(this, massimPercepts.stream().filter(mp -> mp instanceof MapPercept).map(mp -> (MapPercept) mp).collect(Collectors.toList()));
 
         if (!mapContainsGoalZone && massimMap.containsGoalZone()) {
             planTasks = true;
         }
-        //
-//         if (taskPlanner.hasNewTask()) {
-             agentState.setCurrentTask(taskPlanner.getTaskByAgent(this));
-//        }
+
+        agentState.setCurrentTask(taskPlanner.getTaskByAgent(this));
     }
 
     private void createCurrentAgentState(List<MassimPercept> massimPercepts) {
@@ -114,19 +107,12 @@ public class MassimTeam4Agent extends Agent {
 
     @Override
     public Action step() {
-
         MassimTask task = taskPlanner.getTaskByAgent(this);
-
-        // TODO find right place
-        //agentTaskPlanner.update(task);
-
-//        if (task.isFinished(this)) {
-//            taskPlanner.planTaskforAgents();
-//        }
 
         MassimAction massimAction = task.getNextAction(this);
         LOG.info("agent {} {} got next action {} from Task {}",name, agentState.getRole().getRoleType(), massimAction.toString(), task.toString());
-//        decideAction()
+
+        // analyze the proposed action given by the current task and take a decision whether to follow the proposal or execute a different action
         if (massimAction instanceof MoveAction) {
             MoveAction moveAction = (MoveAction) massimAction;
             Coordinates targetCoordinates = getCurrentCoordinates().withOffset(moveAction.getMoveOffset());
@@ -203,11 +189,6 @@ public class MassimTeam4Agent extends Agent {
 
     public int getVision() {
         return 5;
-    }
-
-
-    public boolean hasTask() {
-        return (agentState.getCurrentTask() != null);
     }
 
     public MassimMap getMap() {

@@ -9,6 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Describes the current view of a {@link MassimTeam4Agent} (with vision = 5) and
+ * provides methods for testing if the non-empty intersection of two views is the same.
+ * Used to identify an encountered previously unknown agent.
+ */
 public class MassimMapView {
 
     Map<Coordinates, MassimCell> massimCellsByRelativeCoordinates;
@@ -36,6 +41,7 @@ public class MassimMapView {
          return unident.size() < 3;
     }
 
+    // method for debugging purpose
     public void printView(MassimTeam4Agent agent) {
         Map<Coordinates, MassimCell> m = massimCellsByRelativeCoordinates;
         System.out.println("################ " + agent.getName());
@@ -53,6 +59,7 @@ public class MassimMapView {
         System.out.println("12345678901 ################");
     }
 
+    // method for debugging purpose
     public String getViewString() {
         Map<Coordinates, MassimCell> m = massimCellsByRelativeCoordinates;
         return  "     " + c(0,-5) + "      " + "\n" +

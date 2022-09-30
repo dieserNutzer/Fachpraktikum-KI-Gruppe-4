@@ -11,14 +11,15 @@ import massim.javaagents.massimworld.game.task.agenttask.composite.AcquireRoleTa
 import massim.javaagents.massimworld.game.task.agenttask.composite.GetBlockToGoalZoneTask;
 import massim.javaagents.massimworld.game.task.agenttask.subtask.*;
 import massim.javaagents.massimworld.map.Coordinates;
-import massim.javaagents.massimworld.map.Direction;
 import massim.javaagents.massimworld.map.route.RoutePlanner;
 import massim.javaagents.massimworld.map.things.BlockType;
 import massim.javaagents.massimworld.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Finds possible tasks for an agent and, if succesful, returns a task with

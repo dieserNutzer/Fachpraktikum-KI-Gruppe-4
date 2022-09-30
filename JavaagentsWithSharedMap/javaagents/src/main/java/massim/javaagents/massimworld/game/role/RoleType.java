@@ -11,7 +11,7 @@ public enum RoleType {
     EXPLORER("explorer"),
     DIGGER("digger");
 
-    private String name;
+    private final String name;
 
     RoleType(String name) {
         this.name = name;

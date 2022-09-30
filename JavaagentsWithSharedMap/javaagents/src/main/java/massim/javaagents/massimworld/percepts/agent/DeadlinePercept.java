@@ -5,7 +5,7 @@ import massim.javaagents.massimworld.agent.AgentState;
 
 public class DeadlinePercept extends AgentPercept {
 
-    private long deadline;
+    private final long deadline;
 
     public DeadlinePercept(Percept percept) {
         deadline = readInt(percept, 0);

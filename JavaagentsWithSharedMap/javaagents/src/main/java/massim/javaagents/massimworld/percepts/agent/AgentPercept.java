@@ -1,6 +1,5 @@
 package massim.javaagents.massimworld.percepts.agent;
 
-import massim.javaagents.massimworld.agent.AgentState;
 import massim.javaagents.massimworld.game.Game;
 import massim.javaagents.massimworld.map.MassimCell;
 import massim.javaagents.massimworld.percepts.MassimPercept;

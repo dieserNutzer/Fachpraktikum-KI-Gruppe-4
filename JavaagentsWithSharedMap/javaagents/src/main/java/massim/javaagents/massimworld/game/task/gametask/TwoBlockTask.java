@@ -5,14 +5,9 @@ import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.task.MassimTask;
 import massim.javaagents.massimworld.game.task.TaskRequirement;
 import massim.javaagents.massimworld.game.task.agenttask.AgentTask;
-import massim.javaagents.massimworld.game.task.agenttask.MoveToDispenserTask;
-import massim.javaagents.massimworld.game.task.agenttask.MoveToGoalZoneTask;
-import massim.javaagents.massimworld.game.task.agenttask.subtask.RotateSubtask;
-import massim.javaagents.massimworld.game.task.agenttask.subtask.SubmitSubtask;
 import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.things.BlockType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

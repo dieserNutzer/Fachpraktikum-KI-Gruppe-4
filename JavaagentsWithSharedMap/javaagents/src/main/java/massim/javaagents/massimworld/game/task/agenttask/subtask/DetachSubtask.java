@@ -1,6 +1,5 @@
 package massim.javaagents.massimworld.game.task.agenttask.subtask;
 
-import massim.javaagents.massimworld.actions.AttachAction;
 import massim.javaagents.massimworld.actions.DetachAction;
 import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.actions.NoActionAction;
@@ -9,12 +8,11 @@ import massim.javaagents.massimworld.map.Direction;
 import massim.javaagents.massimworld.map.things.BlockType;
 
 import static massim.javaagents.massimworld.actions.ActionResult.SUCCESS;
-import static massim.javaagents.massimworld.actions.ActionType.ATTACH;
 import static massim.javaagents.massimworld.actions.ActionType.DETACH;
 
 public class DetachSubtask extends AgentSubtask {
 
-    private BlockType attachedBlockType;
+    private final BlockType attachedBlockType;
 
     public DetachSubtask(BlockType attachedBlockType) {
         super("detachSubtask");

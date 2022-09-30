@@ -1,6 +1,8 @@
 package massim.javaagents.massimworld.agent;
 
-import massim.javaagents.massimworld.actions.*;
+import massim.javaagents.massimworld.actions.ActionResult;
+import massim.javaagents.massimworld.actions.ActionType;
+import massim.javaagents.massimworld.actions.MoveAction;
 import massim.javaagents.massimworld.game.Game;
 import massim.javaagents.massimworld.game.role.Role;
 import massim.javaagents.massimworld.game.role.RoleType;
@@ -9,7 +11,6 @@ import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.Direction;
 import massim.javaagents.massimworld.map.things.*;
 import massim.javaagents.massimworld.percepts.MassimPercept;
-import massim.javaagents.massimworld.percepts.agent.AgentPercept;
 import massim.javaagents.massimworld.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The agent state percepted by the agent as result of his perception processing.
@@ -41,7 +41,7 @@ public class AgentState {
 
     private boolean deactivated;
 
-    private List<Pair<Coordinates, Thing>> attachedThings = new ArrayList<>();
+    private final List<Pair<Coordinates, Thing>> attachedThings = new ArrayList<>();
 
     Role role = Game.game().getGameRoles().getGameRoleByType(RoleType.DEFAULT);
 

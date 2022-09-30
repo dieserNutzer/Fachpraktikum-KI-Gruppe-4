@@ -24,10 +24,6 @@ public class DigToRoleZoneTask extends AgentTask {
         this.movesToBlock = movesToBlock;
     }
 
-//    public MoveToDispenserTask(BlockType blockType) {
-//        this.blockType = blockType;
-//    }
-
 
     public List<MoveAction> getMovesToBlock() {
         return movesToBlock;

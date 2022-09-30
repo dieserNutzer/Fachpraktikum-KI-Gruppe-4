@@ -2,7 +2,6 @@ package massim.javaagents.massimworld.agent;
 
 import massim.javaagents.massimworld.actions.Rotation;
 import massim.javaagents.massimworld.map.Coordinates;
-import massim.javaagents.massimworld.map.things.Block;
 import massim.javaagents.massimworld.map.things.Thing;
 
 public class AttachedThing {

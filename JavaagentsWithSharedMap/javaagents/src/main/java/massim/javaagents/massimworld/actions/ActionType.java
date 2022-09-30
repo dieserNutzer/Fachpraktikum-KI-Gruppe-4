@@ -20,7 +20,7 @@ public enum ActionType {
     SURVEY("survey"),
     NO_ACTION("no_action");
 
-    private String name;
+    private final String name;
 
     ActionType(String name) {
         this.name = name;

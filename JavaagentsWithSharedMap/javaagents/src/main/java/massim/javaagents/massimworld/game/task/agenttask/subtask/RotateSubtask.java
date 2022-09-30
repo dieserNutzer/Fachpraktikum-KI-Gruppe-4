@@ -1,12 +1,14 @@
 package massim.javaagents.massimworld.game.task.agenttask.subtask;
 
-import massim.javaagents.massimworld.actions.*;
+import massim.javaagents.massimworld.actions.MassimAction;
+import massim.javaagents.massimworld.actions.RotateAction;
+import massim.javaagents.massimworld.actions.Rotation;
+import massim.javaagents.massimworld.actions.SkipAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.map.Coordinates;
 
 import static massim.javaagents.massimworld.actions.ActionResult.SUCCESS;
 import static massim.javaagents.massimworld.actions.ActionType.ROTATE;
-import static massim.javaagents.massimworld.actions.ActionType.SKIP;
 
 public class RotateSubtask extends AgentSubtask {
 

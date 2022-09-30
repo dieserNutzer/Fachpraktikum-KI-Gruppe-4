@@ -5,20 +5,14 @@ import massim.javaagents.massimworld.game.Game;
 import massim.javaagents.massimworld.game.role.RoleType;
 import massim.javaagents.massimworld.game.task.MassimTask;
 import massim.javaagents.massimworld.game.task.agenttask.ExplorationTask;
-import massim.javaagents.massimworld.game.task.agenttask.composite.AcquireRoleTask;
 import massim.javaagents.massimworld.game.task.gametask.GameTaskCostEvaluator;
 import massim.javaagents.massimworld.game.task.gametask.OneBlockTask;
-import massim.javaagents.massimworld.map.Coordinates;
-import massim.javaagents.massimworld.percepts.MassimPerceptReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 public class OneBlockTaskRule extends GameRule {
 
@@ -56,11 +50,6 @@ public class OneBlockTaskRule extends GameRule {
             }
             oneBlockTasks.add(currentBlockTask);
         }
-
-//        List<OneBlockTask> oneBlockTasks = Game.game().getOneBlockTasks().stream()
-//                .map(task -> GameTaskCostEvaluator.getFeasibleOneBlockTask(task, agent))
-//                .sorted(Comparator.comparing(OneBlockTask::getStepEstimation))
-//                .toList();
 
         if (oneBlockTasks.isEmpty()) {
             LOG.warn("OneBlockTaskRule apply returns no task for agent {} ", agent.getName());

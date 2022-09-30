@@ -1,6 +1,8 @@
 package massim.javaagents.massimworld.game.task.agenttask;
 
-import massim.javaagents.massimworld.actions.*;
+import massim.javaagents.massimworld.actions.MassimAction;
+import massim.javaagents.massimworld.actions.MoveAction;
+import massim.javaagents.massimworld.actions.SkipAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.task.MassimTask;
 
@@ -19,10 +21,6 @@ public class MoveToGoalZoneTask extends AgentTask {
         super("moveToGoalZoneTask");
         this.movesToGoalZone = movesToGoalZone;
     }
-
-//    public MoveToGoalZoneTask(BlockType blockType) {
-//        this.blockType = blockType;
-//    }
 
 
     public List<MoveAction> getMovesToGoalZone() {

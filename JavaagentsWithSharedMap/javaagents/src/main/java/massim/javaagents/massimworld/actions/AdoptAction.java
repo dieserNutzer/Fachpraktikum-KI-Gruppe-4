@@ -2,12 +2,11 @@ package massim.javaagents.massimworld.actions;
 
 import eis.iilang.Action;
 import eis.iilang.Identifier;
-import massim.javaagents.massimworld.game.role.Role;
 import massim.javaagents.massimworld.game.role.RoleType;
 
 public class AdoptAction extends MassimAction {
 
-    private RoleType roleType;
+    private final RoleType roleType;
 
     public AdoptAction(RoleType roleType) {
         this.roleType = roleType;

@@ -2,7 +2,6 @@ package massim.javaagents.massimworld.actions;
 
 import eis.iilang.Action;
 import eis.iilang.Numeral;
-import massim.javaagents.massimworld.map.Coordinates;
 import massim.javaagents.massimworld.map.Direction;
 
 public class ClearAction extends MassimAction {

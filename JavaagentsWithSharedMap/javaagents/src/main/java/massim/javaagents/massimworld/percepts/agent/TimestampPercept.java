@@ -5,7 +5,7 @@ import massim.javaagents.massimworld.agent.AgentState;
 
 public class TimestampPercept extends AgentPercept {
 
-    private long timestamp;
+    private final long timestamp;
 
     public TimestampPercept(Percept percept) {
         timestamp = readInt(percept, 0);

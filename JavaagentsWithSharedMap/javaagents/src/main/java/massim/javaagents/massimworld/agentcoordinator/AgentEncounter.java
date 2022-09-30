@@ -47,22 +47,6 @@ public class AgentEncounter {
     }
 
     // TODO remove when not needed anymore
-//    public boolean isMatching(AgentEncounter otherEncounter){
-//        boolean matches = otherAgentRelativePosition.isInverse(otherEncounter.getOtherAgentRelativePosition());
-//        if (!matches) {
-//            return false;
-//        }
-//        MassimMapView view = agent.getMap().getCurrentViewWithRelativeCoordinatesAndOffset(agent, Coordinates.ZERO);
-//        view.printView();
-//        MassimTeam4Agent otherAgent = otherEncounter.getAgent();
-//        MassimMapView otherView = otherAgent.getMap().getCurrentViewWithRelativeCoordinatesAndOffset(otherAgent, otherAgentRelativePosition);
-//        otherAgent.getMap().getCurrentViewWithRelativeCoordinatesAndOffset(otherAgent, Coordinates.ZERO).printView();
-//        if (view.isSame(otherView)) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
     public boolean agentsHaveInverseRelativePositions(AgentEncounter otherEncounter)  {
         return otherAgentRelativePosition.isInverse(otherEncounter.getOtherAgentRelativePosition());
@@ -128,16 +112,5 @@ public class AgentEncounter {
 //        }
 //        return true;
 //    }
-//
-//    public static Set<AgentEncounter> findMatchingEncounters(Set<AgentEncounter> others) {
-//
-//    }
 
-//    public boolean hasEncounter() {
-//        return !otherAgentPositions.isEmpty();
-//    }
-//
-//    public int numOfOtherAgents() {
-//        return otherAgentPositions.size();
-//    }
 }

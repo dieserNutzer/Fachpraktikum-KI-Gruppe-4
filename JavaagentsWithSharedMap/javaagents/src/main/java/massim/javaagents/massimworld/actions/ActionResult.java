@@ -22,7 +22,7 @@ public enum ActionResult {
     FAILED_LOCATION("failed_location"),
     FAILED_ROLE("failed_role");
 
-    private String name;
+    private final String name;
 
     ActionResult(String name) {
         this.name = name;

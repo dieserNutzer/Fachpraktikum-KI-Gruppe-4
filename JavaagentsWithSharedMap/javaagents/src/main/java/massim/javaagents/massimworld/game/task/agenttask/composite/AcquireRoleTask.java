@@ -3,8 +3,6 @@ package massim.javaagents.massimworld.game.task.agenttask.composite;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.role.RoleType;
 import massim.javaagents.massimworld.game.task.agenttask.AgentTask;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;

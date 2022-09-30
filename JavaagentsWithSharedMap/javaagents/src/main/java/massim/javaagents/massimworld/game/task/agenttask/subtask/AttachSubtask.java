@@ -11,17 +11,12 @@ import static massim.javaagents.massimworld.actions.ActionType.ATTACH;
 
 public class AttachSubtask extends AgentSubtask {
 
-//    private Direction direction;
-    private BlockType blockType;
+    private final BlockType blockType;
 
     public AttachSubtask(BlockType blockType) {
         super("attachSubtask");
         this.blockType = blockType;
     }
-
-    //    public AttachSubtask(Direction direction) {
-//        this.direction = direction;
-//    }
 
     @Override
     public void update(MassimTeam4Agent agent) {

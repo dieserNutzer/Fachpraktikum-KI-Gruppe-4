@@ -3,7 +3,6 @@ package massim.javaagents.massimworld.percepts.agent;
 import eis.iilang.Percept;
 import massim.javaagents.massimworld.actions.ActionResult;
 import massim.javaagents.massimworld.agent.AgentState;
-import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

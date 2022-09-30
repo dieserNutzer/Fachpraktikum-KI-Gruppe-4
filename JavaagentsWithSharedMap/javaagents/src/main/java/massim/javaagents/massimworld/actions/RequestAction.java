@@ -4,8 +4,6 @@ import eis.iilang.Action;
 import eis.iilang.Identifier;
 import massim.javaagents.massimworld.map.Direction;
 
-import java.util.List;
-
 public class RequestAction extends MassimAction {
     Direction direction;
 

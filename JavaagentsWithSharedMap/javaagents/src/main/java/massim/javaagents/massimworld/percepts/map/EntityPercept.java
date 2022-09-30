@@ -4,7 +4,6 @@ import eis.iilang.Percept;
 import massim.javaagents.massimworld.agent.AgentState;
 import massim.javaagents.massimworld.map.MassimCell;
 import massim.javaagents.massimworld.map.things.AgentThing;
-import massim.javaagents.massimworld.map.things.Block;
 
 public class EntityPercept extends MapPercept {
     String teamName;

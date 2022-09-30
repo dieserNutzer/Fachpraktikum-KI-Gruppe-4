@@ -5,7 +5,7 @@ import massim.javaagents.massimworld.game.Game;
 
 public class TeamPercept extends GamePercept {
 
-    private String team;
+    private final String team;
 
     public TeamPercept(Percept percept) {
         team = readString(percept, 0);

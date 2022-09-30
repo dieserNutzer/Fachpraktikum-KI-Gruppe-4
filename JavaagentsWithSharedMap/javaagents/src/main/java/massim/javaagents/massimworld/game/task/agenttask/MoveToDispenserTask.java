@@ -1,6 +1,8 @@
 package massim.javaagents.massimworld.game.task.agenttask;
 
-import massim.javaagents.massimworld.actions.*;
+import massim.javaagents.massimworld.actions.MassimAction;
+import massim.javaagents.massimworld.actions.MoveAction;
+import massim.javaagents.massimworld.actions.SkipAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.task.MassimTask;
 import massim.javaagents.massimworld.map.things.BlockType;
@@ -22,10 +24,6 @@ public class MoveToDispenserTask extends AgentTask {
         this.blockType = blockType;
         this.movesToDispenser = movesToDispenser;
     }
-
-//    public MoveToDispenserTask(BlockType blockType) {
-//        this.blockType = blockType;
-//    }
 
     public BlockType getBlockType() {
         return blockType;

@@ -1,17 +1,13 @@
 package massim.javaagents.massimworld.game.task.agenttask.subtask;
 
-import com.sun.net.httpserver.Authenticator;
-import massim.javaagents.massimworld.actions.ActionType;
 import massim.javaagents.massimworld.actions.AdoptAction;
 import massim.javaagents.massimworld.actions.MassimAction;
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
 import massim.javaagents.massimworld.game.role.RoleType;
 import massim.javaagents.massimworld.game.task.MassimTask;
-import massim.javaagents.massimworld.percepts.agent.LastActionPercept;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static massim.javaagents.massimworld.actions.ActionResult.FAILED_LOCATION;
 import static massim.javaagents.massimworld.actions.ActionResult.SUCCESS;
 import static massim.javaagents.massimworld.actions.ActionType.ADOPT;
 

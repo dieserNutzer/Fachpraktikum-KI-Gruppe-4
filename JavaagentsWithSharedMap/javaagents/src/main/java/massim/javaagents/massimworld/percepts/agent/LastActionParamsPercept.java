@@ -24,10 +24,6 @@ public class LastActionParamsPercept extends AgentPercept {
     List<String> readParameters(Percept percept) {
         List<String> params = new ArrayList<>();
 //        if ()
-//        for (int i=0; i<percept.getParameters().size(); i++) {
-//            parameters.add(readString(percept, i));
-//        }
-//        return params;
         ParameterList pl = ((ParameterList) percept.getParameters().get(0));
         if (pl.size() > 0)
         {

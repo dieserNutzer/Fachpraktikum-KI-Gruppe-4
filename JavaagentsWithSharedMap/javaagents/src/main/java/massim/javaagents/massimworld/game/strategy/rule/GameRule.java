@@ -6,6 +6,9 @@ import massim.javaagents.massimworld.map.MassimMap;
 
 import java.util.Map;
 
+/**
+ *  GameRules should lead the task planning
+ */
 public abstract class GameRule {
 
     protected String ruleName;
@@ -41,6 +44,12 @@ public abstract class GameRule {
      */
     public abstract MassimTask apply(MassimTeam4Agent agent);
 
+    /**
+     * Returns true iff the current rule is feasible for a {@link MassimMap} and a task assigment
+     * @param massimMap the massimMap of the agents given by the task assigment
+     * @param tasksByAgent the current task assigment
+     * @return true iff the task is feasible
+     */
     public boolean isFeasible(MassimMap massimMap, Map<MassimTeam4Agent, MassimTask> tasksByAgent) {
         return false;
     }

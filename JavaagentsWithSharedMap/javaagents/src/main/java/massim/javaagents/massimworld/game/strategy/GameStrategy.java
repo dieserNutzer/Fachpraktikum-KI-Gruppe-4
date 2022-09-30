@@ -1,7 +1,10 @@
 package massim.javaagents.massimworld.game.strategy;
 
 import massim.javaagents.massimworld.agent.MassimTeam4Agent;
-import massim.javaagents.massimworld.game.strategy.rule.*;
+import massim.javaagents.massimworld.game.strategy.rule.AcquireWorkerRule;
+import massim.javaagents.massimworld.game.strategy.rule.ExplorationRule;
+import massim.javaagents.massimworld.game.strategy.rule.GameRule;
+import massim.javaagents.massimworld.game.strategy.rule.OneBlockTaskRule;
 import massim.javaagents.massimworld.game.task.MassimTask;
 import massim.javaagents.massimworld.map.MassimMap;
 import org.slf4j.Logger;
@@ -10,15 +13,16 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The strategy uses a list of priorized {@link GameRule}s to assign tasks to {@link MassimMap}s
+ * or individual {@link MassimTeam4Agent}s.
+ */
 public class GameStrategy {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameStrategy.class);
 
     private static List<GameRule> gameRules = List.of(
-//            new TaskFinishedRemoveTaskRule(200),
-//            new TaskCanceledRemoveTaskRule(200),
-//            new TaskNotFeasibleRemoveTaskRule(200),
-
+//
 //            new TwoBlockTaskRule(200),
 
             new OneBlockTaskRule(100),
